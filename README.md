@@ -111,7 +111,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="wireframes.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
