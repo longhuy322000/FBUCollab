@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightGrey"
+    android:clipToPadding="false"
+    android:gravity="right"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:textAlignment="viewEnd">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/ivUserImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                app:srcCompat="@drawable/default_user" />
+
+            <TextView
+                android:id="@+id/tvUserFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@id/ivUserImage"
+                android:gravity="center_vertical"
+                android:inputType="textPersonName"
+                tools:text="LongHuy Nguyen" />
+
+            <TextView
+                android:id="@+id/tvProjectName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUserFullName"
+                android:gravity="center_horizontal"
+                android:inputType="textCapSentences"
+                android:textSize="20sp"
+                tools:text="Project Name" />
+
+            <ImageView
+                android:id="@+id/ivProjectImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/tvProjectName"
+                android:layout_marginTop="8dp"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivProjectImage"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                tools:text="Description..." />
+
+            <TextView
+                android:id="@+id/tvRelativeTimestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvLikesLabel"
+                android:layout_marginStart="16dp"
+                android:textStyle="italic"
+                tools:text="9 minutes ago" />
+
+            <TextView
+                android:id="@+id/tvSpotsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDescription"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@id/tvSpots"
+                android:text="Spots: " />
+
+            <TextView
+                android:id="@+id/tvSpots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDescription"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                tools:text="3/9" />
+
+            <TextView
+                android:id="@+id/tvLikesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnLike"
+                android:layout_marginStart="16dp"
+                tools:text="8 likes" />
+
+            <Button
+                android:id="@+id/btnLike"
+                style="@style/IconOnlyButton"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvDescription"
+                android:layout_marginStart="16dp"
+                app:icon="@drawable/ufi_heart"
+                app:iconTint="@android:color/black" />
+
+            <Button
+                android:id="@+id/btnComment"
+                style="@style/IconOnlyButton"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvDescription"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@id/btnLike"
+                app:icon="@drawable/ufi_comment"
+                app:iconTint="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tvSkillsList"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvSpots"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:minLines="3"
+                android:textAlignment="textEnd"
+                tools:text="Skills: AWS, HTML, C++, Javascript, Networking" />
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>
