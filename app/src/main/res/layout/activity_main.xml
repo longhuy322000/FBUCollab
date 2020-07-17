@@ -7,47 +7,48 @@
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
-                style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            <ImageView
+                android:id="@+id/ivMenuLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/collab_logo" />
+
+            <TextView
+                android:id="@+id/tvMenuAppName"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="@string/app_name" >
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ivMenuLogo"
+                android:fontFamily="@font/yanone_kaffeesatz_bold"
+                android:text="@string/app_name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:srcCompat="@drawable/collab_logo" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/yanone_kaffeesatz_bold"
-                    android:text="@string/app_name"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.appbar.MaterialToolbar>
-        </com.google.android.material.appbar.AppBarLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <View
+        android:id="@+id/menuBorder"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/toolbar"
+        android:background="@color/lightGrey" />
 
     <FrameLayout
         android:id="@+id/flContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomNavigation"
-        android:layout_marginTop="?android:attr/actionBarSize" />
+        android:layout_below="@id/menuBorder" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

@@ -4,208 +4,254 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lightGrey"
     android:clipToPadding="false">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/corrdinatorLayout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                style="@style/Widget.MaterialComponents.Toolbar.Surface"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="@string/app_name">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:srcCompat="@drawable/collab_logo" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/yanone_kaffeesatz_bold"
-                    android:text="@string/app_name"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.appbar.MaterialToolbar>
-        </com.google.android.material.appbar.AppBarLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:layout_marginTop="?android:attr/actionBarSize" >
+            android:layout_height="match_parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-
-                    <ImageView
-                        android:id="@+id/ivUserImage"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="16dp"
-                        app:srcCompat="@drawable/default_user" />
-
-                    <TextView
-                        android:id="@+id/tvUserFullName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_toRightOf="@id/ivUserImage"
-                        android:gravity="center_vertical"
-                        android:inputType="textPersonName"
-                        tools:text="LongHuy Nguyen" />
-
-                    <TextView
-                        android:id="@+id/tvProjectName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvUserFullName"
-                        android:gravity="center_horizontal"
-                        android:inputType="textCapSentences"
-                        android:textSize="20sp"
-                        tools:text="Project Name" />
-
-                    <ImageView
-                        android:id="@+id/ivProjectImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_below="@+id/tvProjectName"
-                        android:layout_marginTop="8dp"
-                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-                    <TextView
-                        android:id="@+id/tvDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/ivProjectImage"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        tools:text="Description..." />
-
-                    <TextView
-                        android:id="@+id/tvRelativeTimestamp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tvLikesLabel"
-                        android:layout_marginStart="16dp"
-                        android:textStyle="italic"
-                        tools:text="9 minutes ago" />
-
-                    <TextView
-                        android:id="@+id/tvSpotsLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tvDescription"
-                        android:layout_marginTop="5dp"
-                        android:layout_toLeftOf="@id/tvSpots"
-                        android:text="Spots: " />
-
-                    <TextView
-                        android:id="@+id/tvSpots"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tvDescription"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="16dp"
-                        tools:text="3/9" />
-
-                    <TextView
-                        android:id="@+id/tvLikesLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/btnLike"
-                        android:layout_marginStart="16dp"
-                        tools:text="8 likes" />
-
-                    <Button
-                        android:id="@+id/btnLike"
-                        style="@style/IconOnlyButton"
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
-                        android:layout_below="@id/tvDescription"
-                        android:layout_marginStart="16dp"
-                        app:icon="@drawable/ufi_heart"
-                        app:iconTint="@android:color/black" />
-
-                    <Button
-                        android:id="@+id/btnComment"
-                        style="@style/IconOnlyButton"
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
-                        android:layout_below="@id/tvDescription"
-                        android:layout_marginStart="8dp"
-                        android:layout_toRightOf="@id/btnLike"
-                        app:icon="@drawable/ufi_comment"
-                        app:iconTint="@android:color/black" />
-
-                    <Button
-                        android:id="@+id/btnApply"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tvRelativeTimestamp"
-                        android:layout_centerHorizontal="true"
-                        android:text="Apply" />
-
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/rlPostComment"
-                android:layout_below="@id/cvCard" />
-
-            <RelativeLayout
-                android:id="@+id/rlPostComment"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/ivMenuLogo"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignParentBottom="true">
+                app:srcCompat="@drawable/collab_logo" />
 
-                <ImageView
-                    android:id="@+id/ivUserCommentImage"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    tools:srcCompat="@tools:sample/avatars" />
-
-                <TextView
-                    android:id="@+id/tvComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_toLeftOf="@id/btnPostComment"
-                    android:layout_toRightOf="@id/ivUserCommentImage"
-                    android:text="TextView" />
-
-                <Button
-                    android:id="@+id/btnPostComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="Button" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/tvMenuAppName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ivMenuLogo"
+                android:fontFamily="@font/yanone_kaffeesatz_bold"
+                android:text="@string/app_name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
+    <View
+        android:id="@+id/menuBorder"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/toolbar"
+        android:background="@color/lightGrey" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menuBorder"
+        android:layout_above="@+id/rlPostComment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/ivUserImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:srcCompat="@drawable/default_user" />
+
+                <TextView
+                    android:id="@+id/tvUserFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/ivUserImage"
+                    android:gravity="center_vertical"
+                    android:inputType="textPersonName"
+                    android:textStyle="bold"
+                    tools:text="LongHuy Nguyen" />
+
+                <TextView
+                    android:id="@+id/tvProjectName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvUserFullName"
+                    android:gravity="center_horizontal"
+                    android:inputType="textCapSentences"
+                    android:textSize="20sp"
+                    tools:text="Project Name" />
+
+                <ImageView
+                    android:id="@+id/ivProjectImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/tvProjectName"
+                    android:layout_marginTop="8dp"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivProjectImage"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    tools:text="Description..." />
+
+                <TextView
+                    android:id="@+id/tvRelativeTimestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvLikesLabel"
+                    android:layout_marginStart="16dp"
+                    android:textStyle="italic"
+                    tools:text="9 minutes ago" />
+
+                <TextView
+                    android:id="@+id/tvSpotsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDescription"
+                    android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@id/tvSpots"
+                    android:text="Spots: " />
+
+                <TextView
+                    android:id="@+id/tvSpots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDescription"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    tools:text="3/9" />
+
+                <TextView
+                    android:id="@+id/tvLikesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btnLike"
+                    android:layout_marginStart="16dp"
+                    tools:text="8 likes" />
+
+                <Button
+                    android:id="@+id/btnLike"
+                    style="@style/IconOnlyButton"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/tvDescription"
+                    android:layout_marginStart="16dp"
+                    app:icon="@drawable/ufi_heart"
+                    app:iconTint="@android:color/black" />
+
+                <Button
+                    android:id="@+id/btnComment"
+                    style="@style/IconOnlyButton"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/tvDescription"
+                    android:layout_marginStart="8dp"
+                    android:layout_toRightOf="@id/btnLike"
+                    app:icon="@drawable/ufi_comment"
+                    app:iconTint="@android:color/black" />
+
+                <Button
+                    android:id="@+id/btnApply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvRelativeTimestamp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Apply" />
+
+                <View
+                    android:id="@+id/commentBorder"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@id/btnApply"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/lightGrey" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvComments"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/commentBorder"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rlPostComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:id="@+id/postCommentBorder"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/lightGrey" />
+
+        <ImageView
+            android:id="@+id/ivUserCommentImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/postCommentBorder"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/default_user" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilComment"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/postCommentBorder"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@id/btnPostComment"
+            android:layout_toEndOf="@id/ivUserCommentImage"
+            android:hint="Project Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etComment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnPostComment"
+            style="@style/IconOnlyButton"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/postCommentBorder"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:icon="@drawable/ic_baseline_send_24"
+            app:iconSize="30dp"
+            app:iconTint="@color/colorPrimary"
+            tools:layout_centerVertical="true" />
+    </RelativeLayout>
 </RelativeLayout>

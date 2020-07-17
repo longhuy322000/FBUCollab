@@ -72,6 +72,9 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
         }
 
         public void bind(Project project) {
+            Glide.with(context)
+                    .load(project.getOwner().getParseFile(User.KEY_IMAGE).getUrl())
+                    .into(binding.ivUserImage);
             binding.tvUserFullName.setText(project.getOwner().getString(User.KEY_FULL_NAME));
             binding.tvProjectName.setText(project.getProjectName());
             Glide.with(context)

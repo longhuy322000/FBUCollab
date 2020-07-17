@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lightGrey"
     android:clipToPadding="false"
     android:gravity="right"
     android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:textAlignment="viewEnd">
+    android:paddingBottom="5dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvCard"
@@ -17,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

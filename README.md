@@ -15,14 +15,14 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category:**
-- **Mobile:**
-- **Story:**
-- **Market:**
-- **Habit:**
-- **Scope:**
+- **Category:** Education and Social
+- **Mobile:** only available on Android
+- **Story:** allows user to view and apply to projects
+- **Market:** students who are interested in collaborating and working on CS projects with other students
+- **Habit:** Users can view the projects throughout the day and apply if they are interested
+- **Scope:** Collab is very narrow-focused, main targets college students who want to improve their CS knowledge and work on side projects
 
-## Product Spec    
+## Product Spec
 
 ### Requirements
 
@@ -34,9 +34,9 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
    | Use of camera | Project picture, user profile picture
    | App integrates with SDK | Google Login SDK
    | App uses complex algorithm | Project ranking (sort, display projects based on likes, skills)
-   | App uses gesture recognizers | double tap for like
+   | App uses gesture recognizers | double-tap for like
    | App uses animations | transition from MainActivity to ProjectDetailsActivity
-   | App uses external library to add visual polish | Use Material Design to improve the UI and Glide for image loading
+   | App uses an external library to add visual polish | Use Material Design to improve the UI and Glide for image loading
 
 ### 1. User Stories (Required and Optional)
 
@@ -47,13 +47,14 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 - User can click on the project to see more details
     - User can like or comment on the project
 - User can add a new project
-    - User can take pictures or attach pictures from gallary
+    - User can take pictures or attach pictures from gallery
 - User can send a request to be part of the project
 - Have an activity to display all the notifications
-- Have a profile activity that displays all the infomation of that user
+- Have a profile activity that displays all the information of that user
 - User can click on the user's image or username to see the profile
 - User can see all of their projects
-- // TODO add request + confirm
+- User can request to join a project
+- Project owner can accept or decline a request
 
 **Optional Nice-to-have Stories**
 - Users can view their past requests
@@ -71,13 +72,13 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 * HomeFragment
    * User can see all the projects sorted by the algorithm
    * Click on the project to see more details
-   * Have an add button on the toolbar to add new project
+   * Have an add button on the toolbar to add a new project
 * NotificationsFragment
     * List all notifications
 * MyProfileFragment
     * Shows profile, my projects, my requests, applicants
 * NewProjectActivity
-    * Allows user to fill in all information and post new project
+    * Allows user to fill in all information and post a new project
 * ProjectDetailsActivity
     * Lists the description, skills, spots, time length
 * ApplyDialog
@@ -88,7 +89,10 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
     * Shows all projects of a particular user
 * UserProfileActivity
     * Show the profile of a particular user
-* // TODO put optional views
+* RequestsFragment
+    * Show all requests
+* ApplicantsFragment
+    * Show all applicants
 
 ### 3. Navigation
 
@@ -111,13 +115,13 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="wireframes.jpg" width=600>
+<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
 ### [BONUS] Interactive Prototype
 
-## Schema 
+## Schema
 
 ### Models
 
@@ -126,72 +130,100 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
    | Property      | Type     | Description |
    | ------------- | -------- | ------------|
    | objectId      | String   | unique id for the user (default field) |
+   | googleId      | String    | googleId from Google Auth SDK
    | username        | String | username |
    | password         | Hash by Parse     | user's password |
+   | fullName | String | user's full name
    | description       | String   | user's description |
    | school | String   | school name |
    | skills    | Array of string   | list of all skills that the user has |
    | createdAt     | DateTime | date when user is created (default field) |
    | updatedAt     | DateTime | date when user is last updated (default field) |
-   
+
 #### Project
 
 | Property      | Type     | Description |
    | ------------- | -------- | ------------|
    | objectId      | String   | unique id for the project (default field) |
-   | project_name        | String | project's name |
+   | projectName        | String | project's name |
    | description       | String   | user's description |
    | skills | Array of String   | list of skills that are required for the project |
    | spots  | Number | Number of spots
-   | avail_spots | Number | Number of available spots
-   | time_length | String | Estimate time length of the project
-   | imageFile | ParseFile | image of the project
+   | availSpots | Number | Number of available spots
+   | timeLength | String | Estimate time length of the project
+   | image | ParseFile | image of the project
    | status | String | status of the project
    | owner | Pointer to User | pointer to the owner of the project
    | createdAt     | DateTime | date when project is created (default field) |
    | updatedAt     | DateTime | date when project is last updated (default field) |
-   
+
 #### Notification
 
 | Property      | Type     | Description |
    | ------------- | -------- | ------------|
    | objectId      | String   | unique id for the project (default field) |
-   | deliver_to | ParseUser | pointer to the user that receives the notification
+   | deliverTo | Pointer to User | pointer to the user that receives the notification
    | request | Pointer to Request | pointer to the request
    | type | Number | Type of notification (request, confirmation)
    | createdAt     | DateTime | date when notification is created (default field) |
-   
+
 #### Request
 
 | Property      | Type     | Description |
    | ------------- | -------- | ------------|
    | objectId      | String   | unique id for the project (default field) |
-   | request_user | ParseUser | pointer to the user that makes the request
+   | requestedUser | ParseUser | pointer to the user that makes the request
    | project | Project | pointer to the project
+   | status | String | Status of the project
+   | createdAt     | DateTime | date when request is created (default field) |
+
+#### Like
+
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the project (default field) |
+   | owner | Pointer to User | pointer to the user that liked the project
+   | project | Pointer to Project | pointer to the project
+   | createdAt     | DateTime | date when request is created (default field) |
+
+#### Comment
+
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the project (default field) |
+   | owner | Pointer to User | pointer to the user that commented
+   | project | Pointer to Project | pointer to the project
+   | comment | String | comment's content
    | createdAt     | DateTime | date when request is created (default field) |
 
 ### Networking
-- Home Feed Screen
-      - (Read/GET) Query all posts where user is author
-          ```swift
-         let query = PFQuery(className:"Project")
-         query.order(byDescending: "createdAt")
-         query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
-            if let error = error { 
-               print(error.localizedDescription)
-            } else if let posts = posts {
-               print("Successfully retrieved \(posts.count) posts.")
-           // TODO: Do something with posts...
-            }
-         }
-         ```
+- HomeFragment
+    - (Read/GET) Query all projects
+         ``` java
+         ParseQuery query = ParseQuery.getQuery(Project.class);
+         query.include(Project.KEY_OWNER);
+         query.addDescendingOrder(Project.KEY_CREATED_AT);
+         query.findInBackGround(new FindCallBack<Project>() {
+             @Override
+             public void done(final List<Project> projects, ParseException e) {
+                 if (e != null) {
+                     Log.e(TAG, "Issues with getting projects", e);
+                     return;
+                 }
+                 // Process data
+             }
+         });
+        ```
+    - (READ/GET) Load number of likes for project
+    - (READ/GET) Check whether the user has liked the project
 
-      - (Create/POST) Create a new like on a post
-      - (Delete) Delete existing like
-      - (Create/POST) Create a new comment on a post
-      - (Delete) Delete existing comment
-- Create Post Screen
-      - (Create/POST) Create a new post object
-- Profile Screen
-      - (Read/GET) Query logged in user object
-      - (Update/PUT) Update user profile imagev
+- NotificationsFragment
+    - (Read/GET) Get all notifications for current user
+- MyProfileFragment
+    - (Read/GET) Query projects that belong to current user
+- NewProjectActivity
+    - (Create/POST) Post new project
+- ApplyDialog
+    - (Create/POST) Post new request and notification
+- ProcessRequestDialog
+    - (Update/PUT) Update the status of request

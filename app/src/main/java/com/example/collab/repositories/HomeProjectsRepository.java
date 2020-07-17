@@ -8,29 +8,27 @@ import com.example.collab.models.Like;
 import com.example.collab.models.Project;
 import com.parse.CountCallback;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.util.Hashtable;
 import java.util.List;
 
-public class DataRepository {
+public class HomeProjectsRepository {
 
     private static final String TAG = "DataRepository";
 
-    public static DataRepository dataRepository;
+    public static HomeProjectsRepository homeProjectsRepository;
     public MutableLiveData<List<Project>> projects;
 
-    public static DataRepository getInstance() {
-        if (dataRepository == null) {
-            dataRepository = new DataRepository();
+    public static HomeProjectsRepository getInstance() {
+        if (homeProjectsRepository == null) {
+            homeProjectsRepository = new HomeProjectsRepository();
         }
-        return dataRepository;
+        return homeProjectsRepository;
     }
 
-    public DataRepository() {
+    public HomeProjectsRepository() {
         projects = new MutableLiveData<>();
         queryAllProjects();
     }

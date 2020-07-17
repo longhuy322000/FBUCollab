@@ -21,7 +21,7 @@ import com.example.collab.adapters.ProjectsAdapter;
 import com.example.collab.databinding.FragmentHomeBinding;
 import com.example.collab.models.Like;
 import com.example.collab.models.Project;
-import com.example.collab.repositories.DataRepository;
+import com.example.collab.repositories.HomeProjectsRepository;
 import com.example.collab.viewmodels.ProjectsViewModel;
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
         binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                DataRepository.getInstance().queryAllProjects();
+                HomeProjectsRepository.getInstance().queryAllProjects();
             }
         });
 

@@ -8,4 +8,5 @@ public class User {
     public static final String KEY_GOOGLE_ID = "googleId";
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_SKILLS = "skills";
+    public static final String KEY_IMAGE = "image";
 }

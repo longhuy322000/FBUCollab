@@ -27,7 +27,7 @@ public class Comment extends ParseObject {
         put(KEY_OWNER, user);
     }
 
-    public void setKeyProject(Project project) {
+    public void setProject(Project project) {
         put(KEY_PROJECT, project);
     }
 }

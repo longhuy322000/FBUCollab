@@ -16,5 +16,6 @@
         <item name="iconGravity">textStart</item>
         <item name="iconSize">20dp</item>
         <item name="iconTint">#000000</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 </resources>

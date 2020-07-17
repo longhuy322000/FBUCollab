@@ -16,8 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ProjectDetailsActivity"></activity>
-        <activity android:name=".activities.CommentsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -29,6 +27,8 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
+        <activity android:name=".activities.ProjectDetailsActivity" />
+        <activity android:name=".activities.CommentsActivity" />
         <activity android:name=".activities.NewProjectActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
