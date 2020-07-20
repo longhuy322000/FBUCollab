@@ -11,20 +11,20 @@ import java.util.List;
 public class NotificationsViewModel extends ViewModel {
 
     public MutableLiveData<List<Notification>> notifications;
-    NotificationsRepository notificationsRepository;
+    public MutableLiveData<Integer> unseenCount;
+
+    public NotificationsViewModel() {
+        notifications = NotificationsRepository.getInstance().getNotifications();
+        unseenCount = NotificationsRepository.getInstance().getUnseenNofiticationsCount();
+    }
+
+    public void queryNotifications() {
+        NotificationsRepository.getInstance().queryAllNotifications();
+    }
 
     public void markSeen(int position) {
         List<Notification> temp = notifications.getValue();
         temp.get(position).setSeen();
         notifications.setValue(temp);
-    }
-
-    public NotificationsViewModel() {
-        notificationsRepository = new NotificationsRepository();
-        notifications = notificationsRepository.getNotifications();
-    }
-
-    public void queryNotifications() {
-        notificationsRepository.queryAllNotifications();
     }
 }

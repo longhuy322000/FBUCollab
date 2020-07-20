@@ -24,6 +24,7 @@ import com.example.collab.models.Notification;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.example.collab.models.User;
+import com.example.collab.repositories.NotificationsRepository;
 import com.example.collab.viewmodels.NotificationsViewModel;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -126,6 +127,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                         Log.e(TAG, "Issues with saving seen for notification", e);
                         return;
                     }
+                    NotificationsRepository.getInstance().decrementUnseen();
                     viewModel.markSeen(getAdapterPosition());
                     if (notification.getType() == Notification.KEY_NEED_OWNER_CONFIRM) {
                         notificationsAdapterListener.displayProcessRequestDialog(notification.getRequest());

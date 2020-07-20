@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.collab.R;
@@ -13,11 +16,20 @@ import com.example.collab.databinding.ActivityMainBinding;
 import com.example.collab.fragments.HomeFragment;
 import com.example.collab.fragments.MyProfileFragment;
 import com.example.collab.fragments.NotificationFragment;
+import com.example.collab.viewmodels.NotificationsViewModel;
+import com.example.collab.viewmodels.ProjectsViewModel;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    private static final String TAG = "MainActivity";
+    private static final int KEY_HOME_FRAGMENT = 0;
+    private static final int KEY_NOTIFICATION_FRAGMENT = 1;
+    private static final int KEY_MY_PROFILE_FRAGMENT = 2;
+
+    private NotificationsViewModel notificationsViewModel;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +38,30 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        final BadgeDrawable badge = binding.bottomNavigation.getOrCreateBadge(R.id.action_notification);
+
+        notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
+        notificationsViewModel.unseenCount.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer num) {
+                if (num == 0) {
+                    badge.setVisible(false);
+                }
+                else {
+                    badge.setVisible(true);
+                    badge.setNumber(num);
+                }
+            }
+        });
+
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                binding.bottomNavigation.getMenu().getItem(0).setIcon(R.drawable.ic_baseline_home_24);
-                binding.bottomNavigation.getMenu().getItem(1).setIcon(R.drawable.ic_baseline_notifications_24);
-                binding.bottomNavigation.getMenu().getItem(2).setIcon(R.drawable.ic_baseline_person_24);
+                binding.bottomNavigation.getMenu().getItem(KEY_HOME_FRAGMENT).setIcon(R.drawable.ic_baseline_home_24);
+                binding.bottomNavigation.getMenu().getItem(KEY_NOTIFICATION_FRAGMENT).setIcon(R.drawable.ic_baseline_notifications_24);
+                binding.bottomNavigation.getMenu().getItem(KEY_MY_PROFILE_FRAGMENT).setIcon(R.drawable.ic_baseline_person_24);
                 Fragment fragment = new Fragment();
                 switch (item.getItemId()) {
                     case R.id.action_home:
