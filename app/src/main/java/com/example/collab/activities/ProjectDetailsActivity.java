@@ -20,15 +20,17 @@ import com.example.collab.helpers.Helper;
 import com.example.collab.models.Comment;
 import com.example.collab.models.Like;
 import com.example.collab.models.Project;
+import com.example.collab.models.Request;
 import com.example.collab.models.User;
 import com.example.collab.repositories.HomeProjectsRepository;
 import com.example.collab.viewmodels.CommentsViewModel;
 import com.example.collab.viewmodels.CommentsViewModelFactory;
-import com.example.collab.viewmodels.ProjectsViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.parse.DeleteCallback;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -41,12 +43,13 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
 
     private static final String TAG = "ProjectDetailsActivity";
 
-    ActivityProjectDetailsBinding binding;
-    CommentsViewModel commentsViewModel;
-    CommentsAdapter adapter;
-    List<Comment> comments;
-    Project project;
-    int projectPos;
+    private ParseUser currentUser;
+    private ActivityProjectDetailsBinding binding;
+    private CommentsViewModel commentsViewModel;
+    private CommentsAdapter adapter;
+    private List<Comment> comments;
+    private Project project;
+    private int projectPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,8 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        project = Parcels.unwrap(getIntent().getParcelableExtra(Project.class.getName()));
+
+        project = getIntent().getParcelableExtra(Project.class.getName());
         commentsViewModel = new ViewModelProvider(this, new CommentsViewModelFactory(project)).get(CommentsViewModel.class);
         projectPos = getIntent().getIntExtra(Project.KEY_PROJECT_POSITION, 0);
         Like like = getIntent().getParcelableExtra(Project.KEY_USER_LIKE);
@@ -71,9 +75,9 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
         binding.btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // display ApplyDialogFragment
                 FragmentManager fm = getSupportFragmentManager();
-                ApplyDialogFragment applyDialogFragment = ApplyDialogFragment.newInstance(project.getOwner().getString(User.KEY_FULL_NAME),
-                        project.getProjectName(), project.getOwner().getParseFile(User.KEY_IMAGE).getUrl());
+                ApplyDialogFragment applyDialogFragment = ApplyDialogFragment.newInstance(project, currentUser);
                 applyDialogFragment.show(fm, "fragment_apply_dialog");
             }
         });
@@ -83,11 +87,14 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
         binding.rvComments.setAdapter(adapter);
         binding.rvComments.setLayoutManager(new LinearLayoutManager(this));
 
+        // observe comments in model
         commentsViewModel.comments.observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(List<Comment> commentsList) {
                 Log.i(TAG, "loading comments from model");
                 if (!commentsList.isEmpty()) {
+                    // reload UI with new data
+                    comments.clear();
                     comments.addAll(commentsList);
                     adapter.notifyDataSetChanged();
                 }
@@ -102,26 +109,31 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
     }
 
     private void bind() {
+        // bind data to UI
         binding.tvUserFullName.setText(project.getOwner().getString(User.KEY_FULL_NAME));
         binding.tvProjectName.setText(project.getProjectName());
         Glide.with(ProjectDetailsActivity.this)
                 .load(project.getImage().getUrl())
                 .into(binding.ivProjectImage);
         binding.tvDescription.setText(project.getDescription());
-        binding.tvSpots.setText(project.getAvailSpots() + "/" + project.getSpots());
+        binding.tvSpots.setText(project.getSpotsStringDisplay());
         binding.tvRelativeTimestamp.setText(Helper.getRelativeTimeAgo(project.getCreatedAt().toString()));
+        binding.tvSkillsList.setText(project.getSkillsString());
+        binding.tvDuration.setText(project.getDuration());
         if (project.getLiked())
             setLikeActive();
         else setLikeInactive();
         setLikeslabel();
 
+        // fetch currentUser to get image
         ParseUser.getCurrentUser().fetchInBackground(new GetCallback<ParseUser>() {
             @Override
-            public void done(ParseUser currentUser, ParseException e) {
+            public void done(ParseUser user, ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Issues getting current user");
                     return;
                 }
+                currentUser = user;
                 Glide.with(ProjectDetailsActivity.this)
                         .load(currentUser.getParseFile(User.KEY_IMAGE).getUrl())
                         .into(binding.ivUserCommentImage);
@@ -135,19 +147,25 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
             }
         });
 
+        // check if the user is the owner of the project
         if (project.getOwner().getUsername().equals(ParseUser.getCurrentUser().getUsername()))
             binding.btnApply.setVisibility(View.GONE);
-        else binding.btnApply.setVisibility(View.VISIBLE);
+        else checkApplied();
 
+        // postComment button onclick
         binding.btnPostComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String message = binding.etComment.getText().toString();
+                binding.etComment.setText("");
+                Helper.hideKeyboard(ProjectDetailsActivity.this);
+                binding.progressBar.setVisibility(View.VISIBLE);
+
                 if (message == null || message.isEmpty()) {
                     Toast.makeText(ProjectDetailsActivity.this, "Comment can not be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Comment comment = new Comment();
+                final Comment comment = new Comment();
                 comment.setOwner(ParseUser.getCurrentUser());
                 comment.setProject(project);
                 comment.setComment(message);
@@ -156,10 +174,42 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
                     public void done(ParseException e) {
                         if (e != null) {
                             Log.e(TAG, "Issues with saving comment");
-                            return;
                         }
+                        else {
+                            commentsViewModel.insertNewComment(comment);
+                        }
+                        binding.progressBar.setVisibility(View.GONE);
                     }
                 });
+            }
+        });
+    }
+
+    // check whether user has liked the project
+    private void checkApplied() {
+        ParseQuery<Request> query = ParseQuery.getQuery(Request.class);
+        query.whereEqualTo(Request.KEY_REQUESTED_USER, ParseUser.getCurrentUser());
+        query.whereEqualTo(Request.KEY_PROJECT, project);
+        query.findInBackground(new FindCallback<Request>() {
+            @Override
+            public void done(List<Request> requests, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issues with counting requests");
+                    return;
+                }
+                if (requests.isEmpty()) {
+                    binding.btnApply.setText("Apply");
+                }
+                else {
+                    Request request = requests.get(0);
+                    if (request.getStatus() == Request.KEY_PENDING_STATUS)
+                        binding.btnApply.setText("Applied");
+                    else if (request.getStatus() == Request.KEY_ACCEPT_STATUS)
+                        binding.btnApply.setText("Accepted");
+                    else if (request.getStatus() == Request.KEY_DECLINE_STATUS)
+                        binding.btnApply.setText("Declined");
+                    binding.btnApply.setEnabled(false);
+                }
             }
         });
     }
@@ -201,6 +251,7 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
                 }
             });
         }
+        // Notify data has changed in repository and model
         HomeProjectsRepository.getInstance().updateProjectAtPosition(project, projectPos);
     }
 
@@ -222,7 +273,23 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
     }
 
     @Override
-    public void onFinishDialog(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    public void onFinishDialog(Boolean done) {
+        if (!done)
+            return;
+        project.setSpots(project.getSpots() + 1);
+        project.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issues with saving availSpots for project", e);
+                    return;
+                }
+                binding.btnApply.setText("Applied");
+                binding.btnApply.setEnabled(false);
+                binding.tvSpots.setText(project.getSpotsStringDisplay());
+            }
+        });
+        // Notify data has changed in repository and model
+        HomeProjectsRepository.getInstance().updateProjectAtPosition(project, projectPos);
     }
 }

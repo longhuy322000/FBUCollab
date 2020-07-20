@@ -9,12 +9,12 @@
 
     <ImageView
         android:id="@+id/ivUserImage"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/default_user" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -25,26 +25,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:minHeight="70dp"
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/tvUserFullName"
+                android:id="@+id/tvContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="5dp"
-                android:textStyle="bold"
-                tools:text="Full name" />
-
-            <TextView
-                android:id="@+id/tvComment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvUserFullName"
-                android:layout_marginStart="8dp"
-                android:text="TextView" />
+                android:layout_marginStart="5dp"
+                tools:text="Content" />
 
         </RelativeLayout>
-
     </com.google.android.material.card.MaterialCardView>
+
 </RelativeLayout>

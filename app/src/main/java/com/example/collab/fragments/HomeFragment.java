@@ -80,6 +80,7 @@ public class HomeFragment extends Fragment {
         binding.rvProjects.setAdapter(adapter);
         binding.rvProjects.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        HomeProjectsRepository.getInstance().queryAllProjects();
         projectViewModel.getProjects().observe(getViewLifecycleOwner(), new Observer<List<Project>>() {
             @Override
             public void onChanged(List<Project> projectsFromModel) {

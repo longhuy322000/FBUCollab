@@ -8,18 +8,26 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.collab.helpers.CameraHelper;
 import com.example.collab.helpers.Helper;
 import com.example.collab.databinding.ActivityNewProjectBinding;
 import com.example.collab.models.Project;
+import com.example.collab.repositories.HomeProjectsRepository;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -49,6 +57,19 @@ public class NewProjectActivity extends AppCompatActivity {
 
         skillList = new ArrayList<>();
         cameraHelper = new CameraHelper(this);
+
+        binding.etProjectName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                binding.tvProjectNameLabel.setText(editable);
+            }
+        });
 
         binding.btnAddSkill.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -98,13 +119,16 @@ public class NewProjectActivity extends AppCompatActivity {
     }
 
     private void savePost() {
+        binding.btnPost.setVisibility(View.GONE);
+
+        binding.progressBar.setVisibility(View.VISIBLE);
         final Project project = new Project();
         project.setProjectName(binding.etProjectName.getText().toString());
         project.setDescription(binding.etDescription.getText().toString());
         project.setSkills(skillList);
-        project.setSpots(Integer.parseInt(binding.etSpots.getText().toString()));
-        project.setAvailSpots(0);
-        project.setTimeLength(binding.etTimeLength.getText().toString());
+        project.setCapacity(Integer.parseInt(binding.etCapacity.getText().toString()));
+        project.setSpots(0);
+        project.setDuration(binding.etTimeLength.getText().toString());
         project.setImage(photoFile);
         project.setStatus(Project.KEY_STATUS_OPEN);
         project.setOwner(ParseUser.getCurrentUser());
@@ -116,10 +140,16 @@ public class NewProjectActivity extends AppCompatActivity {
                     Toast.makeText(NewProjectActivity.this, "Unable to post the project", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                binding.progressBar.setVisibility(View.GONE);
                 resetUI();
-//                Intent intent = new Intent(NewProjectActivity.this, ProjectDetailsActivity.class);
-//                intent.putExtra(Project.KEY_PROJECT_ID, project.getObjectId());
-//                startActivity(intent);
+                HomeProjectsRepository.getInstance().addProject(project, 0);
+                Intent intent = new Intent(NewProjectActivity.this, ProjectDetailsActivity.class);
+                intent.putExtra(Project.class.getName(), project);
+                intent.putExtra(Project.KEY_PROJECT_POSITION, 0);
+                intent.putExtra(Project.KEY_USER_LIKE, project.getUserLike());
+                intent.putExtra(Project.KEY_LIKES_NUM, project.getLikesNum());
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -166,7 +196,7 @@ public class NewProjectActivity extends AppCompatActivity {
         binding.etDescription.setText("");
         binding.ivProjectImage.setVisibility(View.GONE);
         binding.ivProjectImage.setImageDrawable(null);
-        binding.etSpots.setText("");
+        binding.etCapacity.setText("");
         binding.etTimeLength.setText("");
         binding.tvSkillList.setText("");
         skillList.clear();

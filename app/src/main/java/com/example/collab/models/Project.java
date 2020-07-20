@@ -9,6 +9,7 @@ import com.parse.ParseUser;
 
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +20,9 @@ public class Project extends ParseObject {
     public static final String KEY_PROJECT_NAME = "projectName";
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_SKILLS = "skills";
+    public static final String KEY_CAPACITY = "capacity";
     public static final String KEY_SPOTS = "spots";
-    public static final String KEY_AVAIL_SPOTS = "availSpots";
-    public static final String KEY_TIME_LENGTH = "timeLength";
+    public static final String KEY_DURATION = "duration";
     public static final String KEY_PROJECT_IMAGE = "image";
     public static final String KEY_STATUS = "status";
     public static final String KEY_OWNER = "owner";
@@ -50,20 +51,32 @@ public class Project extends ParseObject {
         return getString(KEY_DESCRIPTION);
     }
 
-    public List<String> getSkills() {
+    public List<String> getSkillsList() {
         return getList(KEY_SKILLS);
+    }
+    public String getSkillsString() {
+        String skills = "";
+        List<String> list = getSkillsList();
+        for (int i=0; i<list.size(); i++) {
+            if (i == 0)
+                skills = list.get(i);
+            else skills += ", " + list.get(i);
+        }
+        return skills;
+    }
+
+    public int getCapacity() {
+        return getInt(KEY_CAPACITY);
     }
 
     public int getSpots() {
         return getInt(KEY_SPOTS);
     }
 
-    public int getAvailSpots() {
-        return getInt(KEY_AVAIL_SPOTS);
-    }
+    public String getSpotsStringDisplay(){ return getSpots() + "/" + getCapacity(); }
 
-    public String getTimeLength() {
-        return getString(KEY_TIME_LENGTH);
+    public String getDuration() {
+        return getString(KEY_DURATION);
     }
 
     public ParseFile getImage() {
@@ -95,19 +108,21 @@ public class Project extends ParseObject {
     }
 
     public void setSkills(List<String> skills) {
-        put(KEY_SKILLS, skills);
+        List<String> temp = new ArrayList<>();
+        temp.addAll(skills);
+        put(KEY_SKILLS, temp);
     }
 
-    public void setSpots(int spots) {
-        put(KEY_SPOTS, spots);
+    public void setCapacity(int spots) {
+        put(KEY_CAPACITY, spots);
     }
 
-    public void setAvailSpots(int availSpots) {
-        put(KEY_AVAIL_SPOTS, availSpots);
+    public void setSpots(int availSpots) {
+        put(KEY_SPOTS, availSpots);
     }
 
-    public void setTimeLength(String timeLength) {
-        put(KEY_TIME_LENGTH, timeLength);
+    public void setDuration(String timeLength) {
+        put(KEY_DURATION, timeLength);
     }
 
     public void setImage(ParseFile file) {

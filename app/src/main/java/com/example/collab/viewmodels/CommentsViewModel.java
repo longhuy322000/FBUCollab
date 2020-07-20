@@ -20,4 +20,10 @@ public class CommentsViewModel extends ViewModel {
         commentsRepository = new CommentsRepository(this.project);
         comments = commentsRepository.getComments();
     }
+
+    public void insertNewComment(Comment comment) {
+        List<Comment> temp = comments.getValue();
+        temp.add(0, comment);
+        comments.setValue(temp);
+    }
 }

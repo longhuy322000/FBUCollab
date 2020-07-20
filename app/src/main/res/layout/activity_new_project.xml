@@ -49,18 +49,30 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp">
 
+        <TextView
+            android:id="@+id/tvProjectNameLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/yanone_kaffeesatz_bold"
+            android:gravity="center_horizontal"
+            android:text="Project Name"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilProjectName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_below="@id/tvProjectNameLabel"
             android:hint="Project Name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProjectName"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:inputType="textVisiblePassword|textNoSuggestions" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,10 +109,10 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tilDescription"
-            android:hint="Number of spots">
+            android:hint="Capacity">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSpots"
+                android:id="@+id/etCapacity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
@@ -200,6 +212,17 @@
             android:layout_below="@id/lnButtonContainer"
             android:layout_centerHorizontal="true"
             android:text="Post" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lnButtonContainer"
+            android:layout_centerHorizontal="true"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
     </RelativeLayout>
 

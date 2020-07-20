@@ -81,8 +81,10 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
                     .load(project.getImage().getUrl())
                     .into(binding.ivProjectImage);
             binding.tvDescription.setText(project.getDescription());
-            binding.tvSpots.setText(project.getAvailSpots() + "/" + project.getSpots());
+            binding.tvSpots.setText(project.getSpotsStringDisplay());
             binding.tvRelativeTimestamp.setText(Helper.getRelativeTimeAgo(project.getCreatedAt().toString()));
+            binding.tvSkillsList.setText(project.getSkillsString());
+            binding.tvDuration.setText(project.getDuration());
             if (project.getLiked() != null && project.getLiked() == true)
                 setLikeActive();
             else setLikeInactive();
@@ -157,7 +159,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(context, ProjectDetailsActivity.class);
-            intent.putExtra(Project.class.getName(), Parcels.wrap(projects.get(getAdapterPosition())));
+            intent.putExtra(Project.class.getName(), projects.get(getAdapterPosition()));
             intent.putExtra(Project.KEY_PROJECT_POSITION, getAdapterPosition());
             intent.putExtra(Project.KEY_USER_LIKE, projects.get(getAdapterPosition()).getUserLike());
             intent.putExtra(Project.KEY_LIKES_NUM, projects.get(getAdapterPosition()).getLikesNum());

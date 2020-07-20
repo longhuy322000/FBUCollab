@@ -16,7 +16,7 @@ import java.util.List;
 
 public class HomeProjectsRepository {
 
-    private static final String TAG = "DataRepository";
+    private static final String TAG = "HomeProjectsRepository";
 
     public static HomeProjectsRepository homeProjectsRepository;
     public MutableLiveData<List<Project>> projects;
@@ -37,8 +37,10 @@ public class HomeProjectsRepository {
         return projects;
     }
 
-    public void setProjects(List<Project> listProjects) {
-        projects.setValue(listProjects);
+    public void addProject(Project project, int position) {
+        List<Project> temp = projects.getValue();
+        temp.add(0, project);
+        projects.setValue(temp);
     }
 
     public void updateProjectAtPosition(Project project, int position) {
@@ -71,7 +73,6 @@ public class HomeProjectsRepository {
                                 Log.e(TAG, "Issues with getting likesNum", e);
                                 return;
                             }
-                            Log.i(TAG, projectsFromDatabase.get(finalI).getObjectId() + " " + count);
                             projectsFromDatabase.get(finalI).setLikesNum(count);
                             projects.setValue(projectsFromDatabase);
                         }

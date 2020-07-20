@@ -11,8 +11,8 @@ public class Notification extends ParseObject {
     public static final String KEY_REQUEST = "request";
     public static final String KEY_TYPE = "type";
 
-    public static final int KEY_NEED_CONFIRM_TYPE = 0;
-    public static final int KEY_SHOW_STATUS = 1;
+    public static final int KEY_NEED_OWNER_CONFIRM = 0;
+    public static final int KEY_APPLICANT_RECEIVE_RESULT = 1;
 
     public ParseUser getDeliverTo() {
         return getParseUser(KEY_DELIVER_TO);

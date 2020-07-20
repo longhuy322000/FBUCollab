@@ -83,9 +83,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUserFullName"
+                    android:fontFamily="@font/yanone_kaffeesatz_bold"
                     android:gravity="center_horizontal"
                     android:inputType="textCapSentences"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     tools:text="Project Name" />
 
                 <ImageView
@@ -97,14 +98,24 @@
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <TextView
+                    android:id="@+id/tvDescriptionLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivProjectImage"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Description: "
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ivProjectImage"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    tools:text="Description..." />
+                    android:layout_toEndOf="@id/tvDescriptionLabel"
+                    tools:text="This is a description" />
 
                 <TextView
                     android:id="@+id/tvRelativeTimestamp"
@@ -119,18 +130,17 @@
                     android:id="@+id/tvSpotsLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvDescription"
-                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/tvDurationLabel"
                     android:layout_toLeftOf="@id/tvSpots"
-                    android:text="Spots: " />
+                    android:text="Spots: "
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvSpots"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvDescription"
+                    android:layout_below="@id/tvDuration"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
                     tools:text="3/9" />
 
@@ -142,12 +152,32 @@
                     android:layout_marginStart="16dp"
                     tools:text="8 likes" />
 
+                <TextView
+                    android:id="@+id/tvDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvSkillsLabel"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    tools:text="5 weeks" />
+
+                <TextView
+                    android:id="@+id/tvDurationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvSkillsLabel"
+                    android:layout_marginTop="8dp"
+                    android:layout_toLeftOf="@id/tvDuration"
+                    android:text="Duration: "
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/btnLike"
                     style="@style/IconOnlyButton"
                     android:layout_width="30dp"
-                    android:layout_height="40dp"
-                    android:layout_below="@id/tvDescription"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/tvSkillsLabel"
                     android:layout_marginStart="16dp"
                     app:icon="@drawable/ufi_heart"
                     app:iconTint="@android:color/black" />
@@ -156,12 +186,31 @@
                     android:id="@+id/btnComment"
                     style="@style/IconOnlyButton"
                     android:layout_width="30dp"
-                    android:layout_height="40dp"
-                    android:layout_below="@id/tvDescription"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/tvSkillsLabel"
                     android:layout_marginStart="8dp"
                     android:layout_toRightOf="@id/btnLike"
                     app:icon="@drawable/ufi_comment"
                     app:iconTint="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/tvSkillsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDescription"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Skills: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSkillsList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDescription"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@id/tvSkillsLabel"
+                    tools:text="AWS, HTML, C++, Javascript, Networking" />
 
                 <Button
                     android:id="@+id/btnApply"
@@ -253,5 +302,17 @@
             app:iconSize="30dp"
             app:iconTint="@color/colorPrimary"
             tools:layout_centerVertical="true" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="8dp"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </RelativeLayout>
 </RelativeLayout>
