@@ -9,6 +9,7 @@ import com.example.collab.models.Request;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -23,11 +24,13 @@ public class NotificationsRepository {
     }
 
     public MutableLiveData<List<Notification>> getNotifications() {
+
         return notifications;
     }
 
-    private void queryAllNotifications() {
+    public void queryAllNotifications() {
         ParseQuery<Notification> query = ParseQuery.getQuery(Notification.class);
+        query.whereEqualTo(Notification.KEY_DELIVER_TO, ParseUser.getCurrentUser());
         query.include(Notification.KEY_REQUEST);
         query.include(Notification.KEY_REQUEST + "." + Request.KEY_PROJECT);
         query.include(Notification.KEY_REQUEST + "." + Request.KEY_REQUESTED_USER);

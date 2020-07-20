@@ -10,9 +10,12 @@ public class Notification extends ParseObject {
     public static final String KEY_DELIVER_TO = "deliverTo";
     public static final String KEY_REQUEST = "request";
     public static final String KEY_TYPE = "type";
+    public static final String KEY_SEEN = "seen";
 
     public static final int KEY_NEED_OWNER_CONFIRM = 0;
     public static final int KEY_APPLICANT_RECEIVE_RESULT = 1;
+
+    // getters start here
 
     public ParseUser getDeliverTo() {
         return getParseUser(KEY_DELIVER_TO);
@@ -26,6 +29,10 @@ public class Notification extends ParseObject {
         return getInt(KEY_TYPE);
     }
 
+    public Boolean getSeen() { return getBoolean(KEY_SEEN); }
+
+    // setters start here
+
     public void setDeliverTo(ParseUser user) {
         put(KEY_DELIVER_TO, user);
     }
@@ -37,4 +44,6 @@ public class Notification extends ParseObject {
     public void setType(int type) {
         put(KEY_TYPE, type);
     }
+
+    public void setSeen() { put(KEY_SEEN, true); }
 }

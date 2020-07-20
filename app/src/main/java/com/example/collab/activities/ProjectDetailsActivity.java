@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.collab.R;
 import com.example.collab.adapters.CommentsAdapter;
 import com.example.collab.databinding.ActivityProjectDetailsBinding;
-import com.example.collab.fragments.ApplyDialogFragment;
+import com.example.collab.dialog_fragments.ApplyDialogFragment;
 import com.example.collab.helpers.Helper;
 import com.example.collab.models.Comment;
 import com.example.collab.models.Like;
@@ -33,8 +33,6 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -204,9 +202,9 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
                     Request request = requests.get(0);
                     if (request.getStatus() == Request.KEY_PENDING_STATUS)
                         binding.btnApply.setText("Applied");
-                    else if (request.getStatus() == Request.KEY_ACCEPT_STATUS)
-                        binding.btnApply.setText("Accepted");
-                    else if (request.getStatus() == Request.KEY_DECLINE_STATUS)
+                    else if (request.getStatus() == Request.KEY_APPROVED_STATUS)
+                        binding.btnApply.setText("Approved");
+                    else if (request.getStatus() == Request.KEY_DECLINED_STATUS)
                         binding.btnApply.setText("Declined");
                     binding.btnApply.setEnabled(false);
                 }
@@ -273,7 +271,8 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
     }
 
     @Override
-    public void onFinishDialog(Boolean done) {
+    public void onFinishDialog(String text, Boolean done) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         if (!done)
             return;
         project.setSpots(project.getSpots() + 1);

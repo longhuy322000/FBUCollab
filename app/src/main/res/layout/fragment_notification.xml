@@ -7,17 +7,18 @@
 
 
     <TextView
-        android:id="@+id/tvLabel"
+        android:id="@+id/tvNoNotifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/yanone_kaffeesatz_bold"
         android:gravity="center_horizontal"
-        android:text="Notifications"
-        android:textSize="30sp" />
+        android:text="There are no notifications"
+        android:textSize="20sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNotifications"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvLabel" />
+        android:layout_below="@id/tvNoNotifications" />
 </RelativeLayout>

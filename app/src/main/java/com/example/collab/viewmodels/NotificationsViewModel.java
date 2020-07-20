@@ -13,8 +13,18 @@ public class NotificationsViewModel extends ViewModel {
     public MutableLiveData<List<Notification>> notifications;
     NotificationsRepository notificationsRepository;
 
+    public void markSeen(int position) {
+        List<Notification> temp = notifications.getValue();
+        temp.get(position).setSeen();
+        notifications.setValue(temp);
+    }
+
     public NotificationsViewModel() {
         notificationsRepository = new NotificationsRepository();
         notifications = notificationsRepository.getNotifications();
+    }
+
+    public void queryNotifications() {
+        notificationsRepository.queryAllNotifications();
     }
 }

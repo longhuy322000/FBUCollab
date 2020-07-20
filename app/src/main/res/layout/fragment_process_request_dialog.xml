@@ -14,69 +14,65 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
+        <Button
+            android:id="@+id/btnClose"
+            style="@style/IconOnlyButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:icon="@drawable/ic_vector_close"
+            app:iconSize="30dp"
+            app:iconTint="@color/colorPrimaryDark" />
+
         <ImageView
             android:id="@+id/ivUserImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_below="@id/btnClose"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tvUsername"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_below="@id/btnClose"
             android:layout_marginStart="8dp"
             android:layout_toRightOf="@id/ivUserImage"
             android:gravity="center_vertical"
             android:textStyle="bold"
             tools:text="Username" />
-    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tvWhyLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        tools:text="Why are you interested in being part of Collab?" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDescription"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="Description">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etDescription"
+        <TextView
+            android:id="@+id/tvContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="top|left"
-            android:minLines="5" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivUserImage"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            tools:text="I'd love to join your project because ..." />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp">
 
         <Button
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnApprove"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel"
-            android:textColor="@color/red" />
+            android:text="Approve"
+            android:textColor="@color/lightGreen" />
 
         <Button
-            android:id="@+id/btnSubmit"
+            android:id="@+id/btnDecline"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="Submit"
-            android:textColor="@color/lightGreen" />
+            android:text="Decline"
+            android:textColor="@color/red" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -85,6 +81,16 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:progressDrawable="@drawable/circular_progress_bar"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/btnProcessed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:enabled="false"
+            android:text="Approved"
             android:visibility="gone"
             tools:visibility="visible" />
     </RelativeLayout>

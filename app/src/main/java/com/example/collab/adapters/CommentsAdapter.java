@@ -45,13 +45,14 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         return comments.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ItemCommentBinding binding;
 
         public ViewHolder(ItemCommentBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(this);
         }
 
         public void bind(Comment comment) {
@@ -60,6 +61,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                     .into(binding.ivUserImage);
             binding.tvComment.setText(comment.getComment());
             binding.tvUserFullName.setText(comment.getOwner().getString(User.KEY_FULL_NAME));
+        }
+
+        @Override
+        public void onClick(View view) {
+
         }
     }
 }

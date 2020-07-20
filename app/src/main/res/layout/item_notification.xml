@@ -2,40 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notificationContainer"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp">
+    android:layout_height="90dp">
 
-    <ImageView
-        android:id="@+id/ivUserImage"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        app:srcCompat="@drawable/default_user" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_toRightOf="@+id/ivUserImage"
-        app:cardBackgroundColor="@color/commentBox">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/ivUserImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            app:srcCompat="@drawable/default_user" />
+
+        <TextView
+            android:id="@+id/tvContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="70dp"
-            android:padding="8dp">
+            android:layout_above="@id/tvCreatedAt"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@id/ivUserImage"
+            android:gravity="center_vertical"
+            tools:text="Content" />
 
-            <TextView
-                android:id="@+id/tvContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                tools:text="Content" />
+        <TextView
+            android:id="@+id/tvCreatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@id/ivUserImage"
+            android:text="9 mins ago"
+            android:textStyle="italic" />
 
-        </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
-
+    </RelativeLayout>
 </RelativeLayout>

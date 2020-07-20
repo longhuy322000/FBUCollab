@@ -37,14 +37,17 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = new Fragment();
                 switch (item.getItemId()) {
                     case R.id.action_home:
+                        binding.tvMenuAppName.setText("Collab");
                         fragment = new HomeFragment();
                         item.setIcon(R.drawable.ic_baseline_home_24);
                         break;
                     case R.id.action_notification:
+                        binding.tvMenuAppName.setText("Notifications");
                         fragment = new NotificationFragment();
                         item.setIcon(R.drawable.ic_baseline_notifications_24);
                         break;
                     case R.id.action_profile:
+                        binding.tvMenuAppName.setText("My Profile");
                         fragment = new MyProfileFragment();
                         item.setIcon(R.drawable.ic_baseline_person_24);
                         break;

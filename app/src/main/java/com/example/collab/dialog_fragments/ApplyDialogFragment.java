@@ -1,4 +1,4 @@
-package com.example.collab.fragments;
+package com.example.collab.dialog_fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +28,7 @@ public class ApplyDialogFragment extends DialogFragment {
     FragmentApplyDialogBinding binding;
 
     public interface ApplyDialogListenter {
-        void onFinishDialog(Boolean done);
+        void onFinishDialog(String text, Boolean done);
     }
 
     public ApplyDialogFragment() {
@@ -77,37 +77,36 @@ public class ApplyDialogFragment extends DialogFragment {
                 binding.btnCancel.setVisibility(View.GONE);
 
                 final Request request = new Request();
+                request.setDescription(binding.etDescription.getText().toString());
                 request.setProject(project);
                 request.setRequestedUser(user);
                 request.setStatus(Request.KEY_PENDING_STATUS);
                 request.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        final ApplyDialogListenter listenter = (ApplyDialogListenter) getActivity();
+                        final ApplyDialogListenter listener = (ApplyDialogListenter) getActivity();
                         if (e != null) {
                             Log.e(TAG, "Issues with saving request", e);
-                            listenter.onFinishDialog(false);
+                            listener.onFinishDialog("Issues with creating request", false);
                             dismiss();
                             return;
                         }
-                        else {
-                            Notification notification = new Notification();
-                            notification.setDeliverTo(project.getOwner());
-                            notification.setRequest(request);
-                            notification.setType(Notification.KEY_NEED_OWNER_CONFIRM);
-                            notification.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e != null){
-                                        Log.e(TAG, "Issues with saving notification", e);
-                                        return;
-                                    }
-                                    listenter.onFinishDialog(true);
-                                    binding.progressBar.setVisibility(View.GONE);
-                                    dismiss();
-                                }
-                            });
-                        }
+                        Notification notification = new Notification();
+                        notification.setDeliverTo(project.getOwner());
+                        notification.setRequest(request);
+                        notification.setType(Notification.KEY_NEED_OWNER_CONFIRM);
+                        notification.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                            if (e != null){
+                                Log.e(TAG, "Issues with saving notification", e);
+                                return;
+                            }
+                            listener.onFinishDialog("Successfully submitted the request",true);
+                            binding.progressBar.setVisibility(View.GONE);
+                            dismiss();
+                            }
+                        });
                     }
                 });
             }
