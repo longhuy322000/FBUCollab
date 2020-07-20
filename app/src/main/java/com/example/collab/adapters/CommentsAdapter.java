@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.example.collab.databinding.ActivityProjectDetailsBinding;
 import com.example.collab.databinding.ItemCommentBinding;
 import com.example.collab.databinding.ItemProjectBinding;
+import com.example.collab.helpers.Helper;
 import com.example.collab.models.Comment;
 import com.example.collab.models.User;
 
@@ -61,6 +62,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                     .into(binding.ivUserImage);
             binding.tvComment.setText(comment.getComment());
             binding.tvUserFullName.setText(comment.getOwner().getString(User.KEY_FULL_NAME));
+            binding.tvCreatedAt.setText(Helper.getRelativeTimeAgo(comment.getCreatedAt().toString()));
         }
 
         @Override

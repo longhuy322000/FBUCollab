@@ -90,6 +90,9 @@ public class HomeFragment extends Fragment {
                     addAllProjects(projectsFromModel);
                     binding.swipeContainer.setRefreshing(false);
                 }
+                else {
+                    clearProjects();
+                }
             }
         });
     }

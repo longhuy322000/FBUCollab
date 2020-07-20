@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.Glide;
-import com.example.collab.databinding.FragmentApplyDialogBinding;
 import com.example.collab.databinding.FragmentProcessRequestDialogBinding;
+import com.example.collab.models.Notification;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.example.collab.models.User;
@@ -24,6 +24,7 @@ public class ProcessRequestDialogFragment extends DialogFragment {
 
     private static final String TAG = "ProcessRequestDialog";
 
+    Request request;
     FragmentProcessRequestDialogBinding binding;
 
     public interface ProcessRequestDialogListener {
@@ -53,9 +54,8 @@ public class ProcessRequestDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final Request request = getArguments().getParcelable(Request.class.getName());
+        request = getArguments().getParcelable(Request.class.getName());
         ParseUser user = request.getRequestedUser();
-        Project project = request.getProject();
 
         Glide.with(getContext())
                 .load(user.getParseFile(User.KEY_IMAGE).getUrl())
@@ -86,7 +86,7 @@ public class ProcessRequestDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 request.setStatus(Request.KEY_DECLINED_STATUS);
-                saveRequest(request);
+                saveRequest();
             }
         });
 
@@ -94,12 +94,23 @@ public class ProcessRequestDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 request.setStatus(Request.KEY_APPROVED_STATUS);
-                saveRequest(request);
+                saveRequest();
+                final Project project = request.getProject();
+                project.setSpots(project.getSpots() + 1);
+                project.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Issues with changing spots in project", e);
+                            return;
+                        }
+                    }
+                });
             }
         });
     }
 
-    private void saveRequest(Request request) {
+    private void saveRequest() {
         request.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -111,7 +122,22 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                 else {
                     listener.onFinishDialog("Successfully processed request", false);
                 }
-                dismiss();
+
+                // Create in notification
+                Notification notification = new Notification();
+                notification.setRequest(request);
+                notification.setDeliverTo(request.getRequestedUser());
+                notification.setType(Notification.KEY_APPLICANT_RECEIVE_RESULT);
+                notification.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Issues with creating new notification", e);
+                            return;
+                        }
+                        dismiss();
+                    }
+                });
             }
         });
     }

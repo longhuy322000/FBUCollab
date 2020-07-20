@@ -19,6 +19,7 @@ import com.example.collab.R;
 import com.example.collab.databinding.ItemNotificationBinding;
 import com.example.collab.dialog_fragments.ApplyDialogFragment;
 import com.example.collab.dialog_fragments.ProcessRequestDialogFragment;
+import com.example.collab.helpers.Helper;
 import com.example.collab.models.Notification;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
@@ -91,6 +92,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             else {
                 binding.getRoot().setBackgroundColor(Color.WHITE);
             }
+            binding.tvCreatedAt.setText(Helper.getRelativeTimeAgo(notification.getCreatedAt().toString()));
 
             Glide.with(context)
                     .load(user.getParseFile(User.KEY_IMAGE).getUrl())
@@ -125,7 +127,9 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                         return;
                     }
                     viewModel.markSeen(getAdapterPosition());
-                    notificationsAdapterListener.displayProcessRequestDialog(notification.getRequest());
+                    if (notification.getType() == Notification.KEY_NEED_OWNER_CONFIRM) {
+                        notificationsAdapterListener.displayProcessRequestDialog(notification.getRequest());
+                    }
                 }
             });
         }

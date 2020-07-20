@@ -275,20 +275,7 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         if (!done)
             return;
-        project.setSpots(project.getSpots() + 1);
-        project.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issues with saving availSpots for project", e);
-                    return;
-                }
-                binding.btnApply.setText("Applied");
-                binding.btnApply.setEnabled(false);
-                binding.tvSpots.setText(project.getSpotsStringDisplay());
-            }
-        });
-        // Notify data has changed in repository and model
-        HomeProjectsRepository.getInstance().updateProjectAtPosition(project, projectPos);
+        binding.btnApply.setText("Applied");
+        binding.btnApply.setEnabled(false);
     }
 }

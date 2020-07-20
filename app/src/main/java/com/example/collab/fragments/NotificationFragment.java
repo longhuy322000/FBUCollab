@@ -89,6 +89,7 @@ public class NotificationFragment extends Fragment implements ProcessRequestDial
                 }
                 else {
                     binding.tvNoNotifications.setVisibility(View.VISIBLE);
+                    notifications.clear();
                 }
             }
         });
