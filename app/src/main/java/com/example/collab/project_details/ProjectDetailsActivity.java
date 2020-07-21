@@ -1,4 +1,4 @@
-package com.example.collab.activities;
+package com.example.collab.project_details;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -13,18 +13,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.collab.R;
-import com.example.collab.adapters.CommentsAdapter;
 import com.example.collab.databinding.ActivityProjectDetailsBinding;
-import com.example.collab.dialog_fragments.ApplyDialogFragment;
-import com.example.collab.helpers.Helper;
+import com.example.collab.shared.Helper;
 import com.example.collab.models.Comment;
 import com.example.collab.models.Like;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.example.collab.models.User;
-import com.example.collab.repositories.ProjectsRepository;
-import com.example.collab.viewmodels.CommentsViewModel;
-import com.example.collab.viewmodels.CommentsViewModelFactory;
+import com.example.collab.main.ProjectsRepository;
 import com.google.android.material.button.MaterialButton;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;

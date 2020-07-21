@@ -1,4 +1,4 @@
-package com.example.collab.viewmodels;
+package com.example.collab.project_details;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;

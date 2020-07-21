@@ -1,4 +1,4 @@
-package com.example.collab.activities;
+package com.example.collab.login;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.collab.helpers.Helper;
+import com.example.collab.main.MainActivity;
+import com.example.collab.shared.Helper;
 import com.example.collab.databinding.ActivityLoginBinding;
 import com.example.collab.models.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

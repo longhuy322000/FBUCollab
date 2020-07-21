@@ -1,40 +1,38 @@
-package com.example.collab.adapters;
+package com.example.collab.main;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.collab.activities.ProjectDetailsActivity;
-import com.example.collab.helpers.Helper;
+import com.example.collab.project_details.ProjectDetailsActivity;
 import com.example.collab.R;
 import com.example.collab.databinding.ItemProjectBinding;
 import com.example.collab.models.Like;
 import com.example.collab.models.Project;
 import com.example.collab.models.User;
+import com.example.collab.shared.Helper;
+import com.example.collab.shared.OnDoubleTapListener;
 import com.google.android.material.button.MaterialButton;
-import com.parse.CountCallback;
 import com.parse.DeleteCallback;
-import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
-import org.parceler.Parcels;
 
 import java.util.List;
 
 public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHolder> {
 
-    private static final String TAG = "ProjectAdapter";
+    private static final String TAG = "ProjectsAdapter";
     Context context;
     List<Project> projects;
 
@@ -90,9 +88,9 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
             else setLikeInactive();
             setLikeslabel();
 
-            binding.btnLike.setOnClickListener(new View.OnClickListener() {
+            binding.btnLike.setOnTouchListener(new OnDoubleTapListener(context) {
                 @Override
-                public void onClick(View view) {
+                public void onDoubleTap(MotionEvent e) {
                     likeOnClick();
                 }
             });

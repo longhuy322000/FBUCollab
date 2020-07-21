@@ -1,11 +1,11 @@
-package com.example.collab.viewmodels;
+package com.example.collab.project_details;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.collab.models.Comment;
 import com.example.collab.models.Project;
-import com.example.collab.repositories.CommentsRepository;
+import com.example.collab.project_details.CommentsRepository;
 
 import java.util.List;
 

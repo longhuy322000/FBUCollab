@@ -1,4 +1,4 @@
-package com.example.collab.dialog_fragments;
+package com.example.collab.notification_main_fragment;
 
 import android.os.Bundle;
 import android.util.Log;

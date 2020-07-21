@@ -1,4 +1,4 @@
-package com.example.collab.activities;
+package com.example.collab.new_project;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.collab.helpers.CameraHelper;
-import com.example.collab.helpers.Helper;
+import com.example.collab.project_details.ProjectDetailsActivity;
+import com.example.collab.shared.CameraHelper;
+import com.example.collab.shared.Helper;
 import com.example.collab.databinding.ActivityNewProjectBinding;
 import com.example.collab.models.Project;
-import com.example.collab.repositories.ProjectsRepository;
+import com.example.collab.main.ProjectsRepository;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;

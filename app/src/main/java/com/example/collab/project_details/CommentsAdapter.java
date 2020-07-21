@@ -1,4 +1,4 @@
-package com.example.collab.adapters;
+package com.example.collab.project_details;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,10 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.collab.databinding.ActivityProjectDetailsBinding;
 import com.example.collab.databinding.ItemCommentBinding;
-import com.example.collab.databinding.ItemProjectBinding;
-import com.example.collab.helpers.Helper;
+import com.example.collab.shared.Helper;
 import com.example.collab.models.Comment;
 import com.example.collab.models.User;
 

@@ -1,10 +1,9 @@
-package com.example.collab.viewmodels;
+package com.example.collab.notification_main_fragment;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.collab.models.Notification;
-import com.example.collab.repositories.NotificationsRepository;
 
 import java.util.List;
 

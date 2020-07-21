@@ -1,11 +1,10 @@
-package com.example.collab.fragments;
+package com.example.collab.main;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,15 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.collab.R;
-import com.example.collab.adapters.NotificationsAdapter;
-import com.example.collab.adapters.NotificationsAdapter.NotificationsAdapterListener;
+import com.example.collab.notification_main_fragment.NotificationsAdapter;
+import com.example.collab.notification_main_fragment.NotificationsAdapter.NotificationsAdapterListener;
 import com.example.collab.databinding.FragmentNotificationBinding;
-import com.example.collab.dialog_fragments.ProcessRequestDialogFragment;
 import com.example.collab.models.Notification;
 import com.example.collab.models.Request;
-import com.example.collab.viewmodels.NotificationsViewModel;
-import com.example.collab.viewmodels.ProjectsViewModel;
+import com.example.collab.notification_main_fragment.NotificationsViewModel;
+import com.example.collab.notification_main_fragment.ProcessRequestDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;

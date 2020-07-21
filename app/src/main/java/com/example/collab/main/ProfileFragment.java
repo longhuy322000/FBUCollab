@@ -1,4 +1,4 @@
-package com.example.collab.fragments;
+package com.example.collab.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +18,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.collab.R;
-import com.example.collab.activities.LoginActivity;
 import com.example.collab.databinding.FragmentProfileBinding;
+import com.example.collab.login.LoginActivity;
 import com.example.collab.models.User;
 import com.example.collab.profile.AboutFragment;
 import com.example.collab.profile.PartOfFragment;

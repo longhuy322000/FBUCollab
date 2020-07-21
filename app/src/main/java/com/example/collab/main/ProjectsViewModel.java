@@ -1,11 +1,10 @@
-package com.example.collab.viewmodels;
+package com.example.collab.main;
 
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.collab.repositories.ProjectsRepository;
 import com.example.collab.models.Project;
 import com.parse.ParseUser;
 

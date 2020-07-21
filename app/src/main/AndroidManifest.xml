@@ -27,17 +27,16 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".activities.ProjectDetailsActivity" />
-        <activity android:name=".activities.CommentsActivity" />
-        <activity android:name=".activities.NewProjectActivity" />
-        <activity android:name=".activities.LoginActivity">
+        <activity android:name=".project_details.ProjectDetailsActivity" />
+        <activity android:name=".new_project.NewProjectActivity" />
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".main.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

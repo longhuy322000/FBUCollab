@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.collab.databinding.FragmentAboutBinding;
-import com.example.collab.helpers.Helper;
+import com.example.collab.shared.Helper;
 import com.example.collab.models.User;
 import com.parse.ParseUser;
 

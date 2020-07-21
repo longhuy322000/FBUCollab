@@ -1,33 +1,25 @@
-package com.example.collab.adapters;
+package com.example.collab.notification_main_fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Html;
-import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.collab.R;
 import com.example.collab.databinding.ItemNotificationBinding;
-import com.example.collab.dialog_fragments.ApplyDialogFragment;
-import com.example.collab.dialog_fragments.ProcessRequestDialogFragment;
-import com.example.collab.helpers.Helper;
+import com.example.collab.shared.Helper;
 import com.example.collab.models.Notification;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.example.collab.models.User;
-import com.example.collab.repositories.NotificationsRepository;
-import com.example.collab.viewmodels.NotificationsViewModel;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;

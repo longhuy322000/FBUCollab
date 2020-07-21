@@ -1,6 +1,5 @@
 package com.example.collab.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,11 +10,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.collab.activities.NewProjectActivity;
-import com.example.collab.fragments.HomeFragment;
+import com.example.collab.main.HomeFragment;
 import com.example.collab.models.Project;
-import com.example.collab.models.User;
-import com.example.collab.viewmodels.ProjectsViewModel;
+import com.example.collab.main.ProjectsViewModel;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -43,14 +40,6 @@ public class PartOfFragment extends HomeFragment {
             @Override
             public void onRefresh() {
                 projectViewModel.getPartOfProjects(user);
-            }
-        });
-
-        binding.addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), NewProjectActivity.class);
-                startActivity(intent);
             }
         });
 

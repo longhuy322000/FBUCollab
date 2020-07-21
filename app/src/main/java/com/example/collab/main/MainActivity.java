@@ -1,4 +1,4 @@
-package com.example.collab.activities;
+package com.example.collab.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,16 +13,12 @@ import android.view.MenuItem;
 
 import com.example.collab.R;
 import com.example.collab.databinding.ActivityMainBinding;
-import com.example.collab.fragments.HomeFragment;
-import com.example.collab.fragments.ProfileFragment;
-import com.example.collab.fragments.NotificationFragment;
+import com.example.collab.notification_main_fragment.NotificationsViewModel;
 import com.example.collab.profile.UserViewModel;
-import com.example.collab.viewmodels.NotificationsViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {

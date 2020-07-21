@@ -1,4 +1,4 @@
-package com.example.collab.dialog_fragments;
+package com.example.collab.project_details;
 
 import android.os.Bundle;
 import android.util.Log;

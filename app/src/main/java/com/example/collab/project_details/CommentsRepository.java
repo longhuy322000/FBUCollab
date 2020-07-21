@@ -1,4 +1,4 @@
-package com.example.collab.repositories;
+package com.example.collab.project_details;
 
 import android.util.Log;
 
