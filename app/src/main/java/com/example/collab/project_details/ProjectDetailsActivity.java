@@ -99,6 +99,7 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         return super.onSupportNavigateUp();
     }
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import android.util.Log;
 import android.view.View;
 
+import com.example.collab.R;
 import com.example.collab.new_project.NewProjectActivity;
 import com.example.collab.models.Project;
 import com.example.collab.shared.ProjectsFragment;
@@ -43,6 +44,7 @@ public class HomeFragment extends ProjectsFragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), NewProjectActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             }
         });
 

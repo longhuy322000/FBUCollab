@@ -1,16 +1,16 @@
 package com.example.collab.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -161,7 +161,13 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
             intent.putExtra(Project.KEY_PROJECT_POSITION, getAdapterPosition());
             intent.putExtra(Project.KEY_USER_LIKE, projects.get(getAdapterPosition()).getUserLike());
             intent.putExtra(Project.KEY_LIKES_NUM, projects.get(getAdapterPosition()).getLikesNum());
+            Pair<View, String> p1 = Pair.create((View) binding.ivProjectImage, "ivProjectImage");
+            Pair<View, String> p2 = Pair.create((View) binding.tvProjectName, "tvProjectName");
+//            ActivityOptionsCompat options = ActivityOptionsCompat.
+//                    makeSceneTransitionAnimation((Activity) context, p1, p2);
             context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_left,
+                    R.anim.slide_out_left);
         }
     }
 }

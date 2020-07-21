@@ -41,6 +41,7 @@
 
             <TextView
                 android:id="@+id/tvProjectName"
+                android:transitionName="tvProjectName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvUserFullName"
@@ -52,6 +53,7 @@
 
             <ImageView
                 android:id="@+id/ivProjectImage"
+                android:transitionName="ivProjectImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@+id/tvProjectName"

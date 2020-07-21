@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.collab.R;
 import com.example.collab.project_details.ProjectDetailsActivity;
 import com.example.collab.shared.CameraHelper;
 import com.example.collab.shared.Helper;
@@ -111,6 +112,7 @@ public class NewProjectActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
         return super.onSupportNavigateUp();
     }
 
