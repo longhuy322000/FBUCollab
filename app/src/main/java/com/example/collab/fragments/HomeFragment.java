@@ -18,10 +18,10 @@ import android.view.ViewGroup;
 
 import com.example.collab.activities.NewProjectActivity;
 import com.example.collab.adapters.ProjectsAdapter;
-import com.example.collab.databinding.FragmentHomeBinding;
+import com.example.collab.databinding.FragmentProjectsBinding;
 import com.example.collab.models.Like;
 import com.example.collab.models.Project;
-import com.example.collab.repositories.HomeProjectsRepository;
+import com.example.collab.repositories.ProjectsRepository;
 import com.example.collab.viewmodels.ProjectsViewModel;
 
 import java.util.ArrayList;
@@ -32,11 +32,10 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
 
-    ProjectsViewModel projectViewModel;
-    FragmentHomeBinding binding;
-    ProjectsAdapter adapter;
-    List<Project> projects;
-    Hashtable<String, List<Like>> likes;
+    public ProjectsViewModel projectViewModel;
+    public FragmentProjectsBinding binding;
+    public ProjectsAdapter adapter;
+    public List<Project> projects;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,7 +50,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(getLayoutInflater());
+        binding = FragmentProjectsBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
@@ -59,10 +58,12 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        bind();
+
         binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                HomeProjectsRepository.getInstance().queryAllProjects();
+                projectViewModel.getAllProjects();
             }
         });
 
@@ -74,13 +75,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        projects = new ArrayList<>();
-        likes = new Hashtable<>();
-        adapter = new ProjectsAdapter(getContext(), projects);
-        binding.rvProjects.setAdapter(adapter);
-        binding.rvProjects.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        HomeProjectsRepository.getInstance().queryAllProjects();
+        projectViewModel.getAllProjects();
         projectViewModel.getProjects().observe(getViewLifecycleOwner(), new Observer<List<Project>>() {
             @Override
             public void onChanged(List<Project> projectsFromModel) {
@@ -97,23 +92,20 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void clearProjects() {
+    public void bind() {
+        projects = new ArrayList<>();
+        adapter = new ProjectsAdapter(getContext(), projects);
+        binding.rvProjects.setAdapter(adapter);
+        binding.rvProjects.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    public void clearProjects() {
         projects.clear();
         adapter.notifyDataSetChanged();
     }
 
-    private void addAllProjects(List<Project> projectsFromDatabase) {
+    public void addAllProjects(List<Project> projectsFromDatabase) {
         projects.addAll(projectsFromDatabase);
-        adapter.notifyDataSetChanged();
-    }
-
-    private void clearLikes() {
-        likes.clear();
-        adapter.notifyDataSetChanged();
-    }
-
-    private void addAllLikes(Hashtable<String, List<Like>> likesFromDatabase) {
-        likes.putAll(likesFromDatabase);
         adapter.notifyDataSetChanged();
     }
 }

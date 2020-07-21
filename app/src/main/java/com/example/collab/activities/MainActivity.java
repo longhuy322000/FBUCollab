@@ -14,12 +14,16 @@ import android.view.MenuItem;
 import com.example.collab.R;
 import com.example.collab.databinding.ActivityMainBinding;
 import com.example.collab.fragments.HomeFragment;
-import com.example.collab.fragments.MyProfileFragment;
+import com.example.collab.fragments.ProfileFragment;
 import com.example.collab.fragments.NotificationFragment;
+import com.example.collab.profile.UserViewModel;
 import com.example.collab.viewmodels.NotificationsViewModel;
-import com.example.collab.viewmodels.ProjectsViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NotificationsViewModel notificationsViewModel;
     private ActivityMainBinding binding;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        fetchCurrentUser();
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -76,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_profile:
                         binding.tvMenuAppName.setText("My Profile");
-                        fragment = new MyProfileFragment();
+                        fragment = new ProfileFragment();
                         item.setIcon(R.drawable.ic_baseline_person_24);
                         break;
                 }
@@ -85,5 +92,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         binding.bottomNavigation.setSelectedItemId(R.id.action_home);
+    }
+
+    private void fetchCurrentUser() {
+        ParseUser.getCurrentUser().fetchInBackground(new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser object, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issies with getting current user", e);
+                    return;
+                }
+                userViewModel.currentUser.setValue(ParseUser.getCurrentUser());
+            }
+        });
     }
 }

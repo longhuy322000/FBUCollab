@@ -11,23 +11,18 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.collab.helpers.CameraHelper;
 import com.example.collab.helpers.Helper;
 import com.example.collab.databinding.ActivityNewProjectBinding;
 import com.example.collab.models.Project;
-import com.example.collab.repositories.HomeProjectsRepository;
+import com.example.collab.repositories.ProjectsRepository;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
-import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -142,7 +137,7 @@ public class NewProjectActivity extends AppCompatActivity {
                 }
                 binding.progressBar.setVisibility(View.GONE);
                 resetUI();
-                HomeProjectsRepository.getInstance().addProject(project, 0);
+                ProjectsRepository.getInstance().addProject(project, 0);
                 Intent intent = new Intent(NewProjectActivity.this, ProjectDetailsActivity.class);
                 intent.putExtra(Project.class.getName(), project);
                 intent.putExtra(Project.KEY_PROJECT_POSITION, 0);

@@ -14,6 +14,7 @@ import com.parse.ParseFile;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 public class Helper {
@@ -61,5 +62,17 @@ public class Helper {
         }
 
         return relativeDate;
+    }
+
+    public static String listToString(List<String> list) {
+        if (list == null || list.isEmpty())
+            return "";
+        String str = "";
+        for (int i=0; i<list.size(); i++) {
+            if (i == 0)
+                str = list.get(i);
+            else str += ", " + list.get(i);
+        }
+        return str;
     }
 }

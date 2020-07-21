@@ -54,16 +54,6 @@ public class Project extends ParseObject {
     public List<String> getSkillsList() {
         return getList(KEY_SKILLS);
     }
-    public String getSkillsString() {
-        String skills = "";
-        List<String> list = getSkillsList();
-        for (int i=0; i<list.size(); i++) {
-            if (i == 0)
-                skills = list.get(i);
-            else skills += ", " + list.get(i);
-        }
-        return skills;
-    }
 
     public int getCapacity() {
         return getInt(KEY_CAPACITY);

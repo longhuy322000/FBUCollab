@@ -22,7 +22,7 @@ import com.example.collab.models.Like;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.example.collab.models.User;
-import com.example.collab.repositories.HomeProjectsRepository;
+import com.example.collab.repositories.ProjectsRepository;
 import com.example.collab.viewmodels.CommentsViewModel;
 import com.example.collab.viewmodels.CommentsViewModelFactory;
 import com.google.android.material.button.MaterialButton;
@@ -116,7 +116,7 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
         binding.tvDescription.setText(project.getDescription());
         binding.tvSpots.setText(project.getSpotsStringDisplay());
         binding.tvRelativeTimestamp.setText(Helper.getRelativeTimeAgo(project.getCreatedAt().toString()));
-        binding.tvSkillsList.setText(project.getSkillsString());
+        binding.tvSkillsList.setText(Helper.listToString(project.getSkillsList()));
         binding.tvDuration.setText(project.getDuration());
         if (project.getLiked())
             setLikeActive();
@@ -250,7 +250,7 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
             });
         }
         // Notify data has changed in repository and model
-        HomeProjectsRepository.getInstance().updateProjectAtPosition(project, projectPos);
+        ProjectsRepository.getInstance().updateProjectAtPosition(project, projectPos);
     }
 
     public void setLikeActive() {

@@ -83,7 +83,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
             binding.tvDescription.setText(project.getDescription());
             binding.tvSpots.setText(project.getSpotsStringDisplay());
             binding.tvRelativeTimestamp.setText(Helper.getRelativeTimeAgo(project.getCreatedAt().toString()));
-            binding.tvSkillsList.setText(project.getSkillsString());
+            binding.tvSkillsList.setText(Helper.listToString(project.getSkillsList()));
             binding.tvDuration.setText(project.getDuration());
             if (project.getLiked() != null && project.getLiked() == true)
                 setLikeActive();

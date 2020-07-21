@@ -226,7 +226,7 @@
                     android:layout_height="0.5dp"
                     android:layout_below="@id/btnApply"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/lightGrey" />
 

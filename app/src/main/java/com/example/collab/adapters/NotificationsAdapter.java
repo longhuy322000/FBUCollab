@@ -3,6 +3,8 @@ package com.example.collab.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,17 +100,24 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             Glide.with(context)
                     .load(user.getParseFile(User.KEY_IMAGE).getUrl())
                     .into(binding.ivUserImage);
+            String str;
             switch (notification.getType()) {
                 case Notification.KEY_NEED_OWNER_CONFIRM:
-                    binding.tvContent.setText(user.getString(User.KEY_FULL_NAME) + " wants to be part of " + project.getProjectName());
+                    str = "<b>" + user.getString(User.KEY_FULL_NAME) + "</b>" + " wants to be part of your " + " <b>"
+                            + project.getProjectName() + "</b> project";
+                    binding.tvContent.setText(Html.fromHtml(str));
                     break;
                 case Notification.KEY_APPLICANT_RECEIVE_RESULT:
                     switch (request.getStatus()) {
                         case Request.KEY_APPROVED_STATUS:
-                            binding.tvContent.setText(user.getString(User.KEY_FULL_NAME) + " has accepted your request " + project.getProjectName());
+                            str = "<b>" + user.getString(User.KEY_FULL_NAME) + "</b>" + " has accepted your request to join " + " <b>"
+                                    + project.getProjectName() + "</b> project";
+                            binding.tvContent.setText(Html.fromHtml(str));
                             break;
                         case Request.KEY_DECLINED_STATUS:
-                            binding.tvContent.setText(user.getString(User.KEY_FULL_NAME) + " has declined your request " + project.getProjectName());
+                            str = "<b>" + user.getString(User.KEY_FULL_NAME) + "</b>" + " has declined your request to join " + " <b>"
+                                    + project.getProjectName() + "</b> project";
+                            binding.tvContent.setText(Html.fromHtml(str));
                             break;
                     }
                     break;
@@ -119,21 +128,23 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         public void onClick(View view) {
             // Display ProcessRequestDialog
             final Notification notification = notifications.get(getAdapterPosition());
-            notification.setSeen();
-            notification.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e != null) {
-                        Log.e(TAG, "Issues with saving seen for notification", e);
-                        return;
+            if (!notification.getSeen()) {
+                notification.setSeen();
+                notification.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Issues with saving seen for notification", e);
+                            return;
+                        }
+                        NotificationsRepository.getInstance().decrementUnseen();
+                        viewModel.markSeen(getAdapterPosition());
                     }
-                    NotificationsRepository.getInstance().decrementUnseen();
-                    viewModel.markSeen(getAdapterPosition());
-                    if (notification.getType() == Notification.KEY_NEED_OWNER_CONFIRM) {
-                        notificationsAdapterListener.displayProcessRequestDialog(notification.getRequest());
-                    }
-                }
-            });
+                });
+            }
+            if (notification.getType() == Notification.KEY_NEED_OWNER_CONFIRM) {
+                notificationsAdapterListener.displayProcessRequestDialog(notification.getRequest());
+            }
         }
     }
 }
