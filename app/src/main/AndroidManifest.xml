@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".profile.EditProfileActivity"></activity>
+        <activity android:name=".profile.UserProfileActivity"></activity>
+        <activity android:name=".profile.EditProfileActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

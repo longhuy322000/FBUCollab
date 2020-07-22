@@ -1,4 +1,4 @@
-package com.example.collab.main;
+package com.example.collab.main.home;
 
 import android.util.Log;
 

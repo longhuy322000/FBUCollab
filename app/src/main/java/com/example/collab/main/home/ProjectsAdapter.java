@@ -1,4 +1,4 @@
-package com.example.collab.main;
+package com.example.collab.main.home;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.collab.profile.UserProfileActivity;
 import com.example.collab.project_details.ProjectDetailsActivity;
 import com.example.collab.R;
 import com.example.collab.databinding.ItemProjectBinding;
@@ -96,6 +96,20 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
             });
 
             binding.getRoot().setOnClickListener(this);
+
+            binding.ivUserImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goToUserProfile();
+                }
+            });
+
+            binding.tvUserFullName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goToUserProfile();
+                }
+            });
         }
 
         private void likeOnClick() {
@@ -161,13 +175,16 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
             intent.putExtra(Project.KEY_PROJECT_POSITION, getAdapterPosition());
             intent.putExtra(Project.KEY_USER_LIKE, projects.get(getAdapterPosition()).getUserLike());
             intent.putExtra(Project.KEY_LIKES_NUM, projects.get(getAdapterPosition()).getLikesNum());
-            Pair<View, String> p1 = Pair.create((View) binding.ivProjectImage, "ivProjectImage");
-            Pair<View, String> p2 = Pair.create((View) binding.tvProjectName, "tvProjectName");
-//            ActivityOptionsCompat options = ActivityOptionsCompat.
-//                    makeSceneTransitionAnimation((Activity) context, p1, p2);
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_left,
                     R.anim.slide_out_left);
+        }
+
+        private void goToUserProfile() {
+            Intent intent = new Intent(context, UserProfileActivity.class);
+            intent.putExtra(ParseUser.class.getName(), projects.get(getAdapterPosition()).getOwner());
+            context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
         }
     }
 }

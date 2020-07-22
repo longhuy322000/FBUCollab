@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.collab.databinding.FragmentProjectsBinding;
-import com.example.collab.main.ProjectsAdapter;
-import com.example.collab.main.ProjectsViewModel;
+import com.example.collab.main.home.ProjectsAdapter;
+import com.example.collab.main.home.ProjectsViewModel;
 import com.example.collab.models.Project;
 
 import java.util.ArrayList;

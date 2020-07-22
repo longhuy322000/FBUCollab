@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.collab.main.HomeFragment;
+import com.example.collab.main.home.HomeFragment;
 import com.example.collab.models.Project;
-import com.example.collab.main.ProjectsViewModel;
+import com.example.collab.main.home.ProjectsViewModel;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -36,6 +36,8 @@ public class ProfileProjectsFragment extends HomeFragment {
 
         bind();
 
+        binding.addButton.setVisibility(View.GONE);
+
         binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -57,7 +59,6 @@ public class ProfileProjectsFragment extends HomeFragment {
     }
 
     private void bindDataToRecyclerView(ParseUser user) {
-        projectViewModel.getUserProjects(user);
         projectViewModel.getProjects().observe(getViewLifecycleOwner(), new Observer<List<Project>>() {
             @Override
             public void onChanged(List<Project> projectsFromModel) {

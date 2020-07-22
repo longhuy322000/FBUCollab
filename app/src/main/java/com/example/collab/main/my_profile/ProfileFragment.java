@@ -1,4 +1,4 @@
-package com.example.collab.main;
+package com.example.collab.main.my_profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.collab.R;
 import com.example.collab.databinding.FragmentProfileBinding;
 import com.example.collab.login.LoginActivity;
+import com.example.collab.main.home.ProjectsRepository;
 import com.example.collab.models.User;
 import com.example.collab.profile.AboutFragment;
 import com.example.collab.profile.EditProfileActivity;
@@ -98,18 +100,21 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Fragment fragment = new Fragment();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
                 switch (tab.getPosition()) {
                     case KEY_ABOUT_TAB:
                         fragment = new AboutFragment();
                         break;
                     case KEY_PROJECTS_TAB:
+                        ProjectsRepository.getInstance().queryUserProjects(user);
                         fragment = new ProfileProjectsFragment();
                         break;
                     case KEY_PART_OF_TAB:
+                        ProjectsRepository.getInstance().queryPartofProjects(user);
                         fragment = new PartOfFragment();
                         break;
                 }
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                transaction.replace(R.id.flContainer, fragment).commit();
             }
 
             @Override
@@ -134,12 +139,6 @@ public class ProfileFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit_profile:
-//                FragmentManager fm = getActivity().getSupportFragmentManager();
-//                EditProfileDialogFragment dialog = EditProfileDialogFragment.newInstance(user);
-//                dialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
-//                dialog.setTargetFragment(ProfileFragment.this, 300);
-//                dialog.show(fm, "fragment_edit_profile_dialog");
-
                 Intent intent = new Intent(getActivity(), EditProfileActivity.class);
                 intent.putExtra(ParseUser.class.getName(), user);
                 startActivity(intent);

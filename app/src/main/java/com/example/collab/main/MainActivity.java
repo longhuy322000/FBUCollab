@@ -10,22 +10,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.collab.R;
 import com.example.collab.databinding.ActivityMainBinding;
-import com.example.collab.models.Project;
-import com.example.collab.notification_main_fragment.NotificationsViewModel;
+import com.example.collab.main.home.HomeFragment;
+import com.example.collab.main.my_profile.ProfileFragment;
+import com.example.collab.main.notification.NotificationFragment;
+import com.example.collab.main.notification.NotificationsViewModel;
 import com.example.collab.profile.UserViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -99,8 +97,11 @@ public class MainActivity extends AppCompatActivity {
                         currentTab = KEY_MY_PROFILE_FRAGMENT;
                         break;
                 }
-                if (currentTab != previousTab)
+                if (currentTab < previousTab)
+                    transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
+                else if (currentTab > previousTab)
                     transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+
                 previousTab = currentTab;
                 transaction.replace(R.id.flContainer, fragment).commit();
                 return true;

@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.collab.R;
 import com.example.collab.databinding.ActivityEditProfileBinding;
 import com.example.collab.main.MainActivity;
-import com.example.collab.main.ProfileFragment;
+import com.example.collab.main.my_profile.ProfileFragment;
 import com.example.collab.models.User;
 import com.example.collab.shared.CameraHelper;
 import com.example.collab.shared.Helper;
@@ -26,7 +26,6 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

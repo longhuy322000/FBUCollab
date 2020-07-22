@@ -20,7 +20,7 @@ import com.example.collab.models.Like;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.example.collab.models.User;
-import com.example.collab.main.ProjectsRepository;
+import com.example.collab.main.home.ProjectsRepository;
 import com.google.android.material.button.MaterialButton;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -55,7 +55,6 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
 
         project = getIntent().getParcelableExtra(Project.class.getName());
         commentsViewModel = new ViewModelProvider(this, new CommentsViewModelFactory(project)).get(CommentsViewModel.class);
@@ -105,6 +104,9 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
 
     private void bind() {
         // bind data to UI
+        Glide.with(ProjectDetailsActivity.this)
+                .load(project.getOwner().getParseFile(User.KEY_IMAGE).getUrl())
+                .into(binding.ivUserImage);
         binding.tvUserFullName.setText(project.getOwner().getString(User.KEY_FULL_NAME));
         binding.tvProjectName.setText(project.getProjectName());
         Glide.with(ProjectDetailsActivity.this)

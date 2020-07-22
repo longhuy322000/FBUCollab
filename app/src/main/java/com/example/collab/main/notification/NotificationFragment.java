@@ -1,4 +1,4 @@
-package com.example.collab.main;
+package com.example.collab.main.notification;
 
 import android.os.Bundle;
 
@@ -12,20 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.collab.R;
-import com.example.collab.notification_main_fragment.NotificationsAdapter;
-import com.example.collab.notification_main_fragment.NotificationsAdapter.NotificationsAdapterListener;
+import com.example.collab.main.notification.NotificationsAdapter.NotificationsAdapterListener;
 import com.example.collab.databinding.FragmentNotificationBinding;
 import com.example.collab.models.Notification;
 import com.example.collab.models.Request;
-import com.example.collab.notification_main_fragment.NotificationsViewModel;
-import com.example.collab.notification_main_fragment.ProcessRequestDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;

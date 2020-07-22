@@ -1,4 +1,4 @@
-package com.example.collab.notification_main_fragment;
+package com.example.collab.main.notification;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

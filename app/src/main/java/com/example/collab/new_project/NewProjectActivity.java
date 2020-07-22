@@ -20,7 +20,7 @@ import com.example.collab.shared.CameraHelper;
 import com.example.collab.shared.Helper;
 import com.example.collab.databinding.ActivityNewProjectBinding;
 import com.example.collab.models.Project;
-import com.example.collab.main.ProjectsRepository;
+import com.example.collab.main.home.ProjectsRepository;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
