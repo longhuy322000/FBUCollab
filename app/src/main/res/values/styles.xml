@@ -19,4 +19,13 @@
         <item name="iconTint">#000000</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
+
+    <style name="Dialog.FullScreen" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_in_down</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>

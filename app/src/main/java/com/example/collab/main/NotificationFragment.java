@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.collab.R;
 import com.example.collab.notification_main_fragment.NotificationsAdapter;
 import com.example.collab.notification_main_fragment.NotificationsAdapter.NotificationsAdapterListener;
 import com.example.collab.databinding.FragmentNotificationBinding;

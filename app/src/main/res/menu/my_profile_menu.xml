@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_edit_profile"
+        android:title="Edit Profile"
+        app:showAsAction="collapseActionView" />
+    <View
+        android:id="@+id/edit_border"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/lightGrey" />
+
+    <item
+        android:id="@+id/action_my_requests"
+        android:title="My Requests"
+        app:showAsAction="collapseActionView" />
+    <View
+        android:id="@+id/requests_border"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/lightGrey" />
+
+    <item
+        android:id="@+id/action_see_applicants"
+        android:title="All Applicants"
+        app:showAsAction="collapseActionView" />
+    <View
+        android:id="@+id/applicants_border"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/lightGrey" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="Log Out"
+        app:showAsAction="collapseActionView" />
+</menu>

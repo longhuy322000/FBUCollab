@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,6 +25,7 @@ import com.example.collab.databinding.FragmentProfileBinding;
 import com.example.collab.login.LoginActivity;
 import com.example.collab.models.User;
 import com.example.collab.profile.AboutFragment;
+import com.example.collab.profile.EditProfileActivity;
 import com.example.collab.profile.PartOfFragment;
 import com.example.collab.profile.ProfileProjectsFragment;
 import com.example.collab.profile.UserViewModel;
@@ -40,6 +44,7 @@ public class ProfileFragment extends Fragment {
     private static final int KEY_PROJECTS_TAB = 1;
     private static final int KEY_PART_OF_TAB = 2;
 
+    private ParseUser user;
     private UserViewModel userViewModel;
     private GoogleSignInClient googleSignInClient;
     private FragmentProfileBinding binding;
@@ -62,6 +67,12 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.my_profile_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -69,7 +80,10 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChanged(ParseUser parseUser) {
                 if (parseUser != null) {
-                    bindUserUI(parseUser);
+                    user = parseUser;
+                    bindUserUI(user);
+                    if (user.isAuthenticated())
+                        setHasOptionsMenu(true);
                 }
             }
         });
@@ -78,27 +92,6 @@ public class ProfileFragment extends Fragment {
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(getContext(), gso);
-
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                googleSignInClient.signOut();
-
-                ParseUser.logOutInBackground(new LogOutCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null ){
-                            Log.e(TAG, "Issues with logging out", e);
-                            Toast.makeText(getContext(), "Unable to log out", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Intent intent = new Intent(getContext(), LoginActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
-                });
-            }
-        });
 
         final FragmentManager fragmentManager = getChildFragmentManager();
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -134,5 +127,48 @@ public class ProfileFragment extends Fragment {
                 .load(user.getParseFile(User.KEY_IMAGE).getUrl())
                 .into(binding.ivUserImage);
         binding.tvUserFullName.setText(user.getString(User.KEY_FULL_NAME));
+        binding.tvDescription.setText(user.getString(User.KEY_DESCRIPTION));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit_profile:
+//                FragmentManager fm = getActivity().getSupportFragmentManager();
+//                EditProfileDialogFragment dialog = EditProfileDialogFragment.newInstance(user);
+//                dialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
+//                dialog.setTargetFragment(ProfileFragment.this, 300);
+//                dialog.show(fm, "fragment_edit_profile_dialog");
+
+                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                intent.putExtra(ParseUser.class.getName(), user);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                break;
+            case R.id.action_my_requests:
+
+                break;
+            case R.id.action_see_applicants:
+
+                break;
+            case R.id.action_logout:
+                googleSignInClient.signOut();
+
+                ParseUser.logOutInBackground(new LogOutCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null ){
+                            Log.e(TAG, "Issues with logging out", e);
+                            Toast.makeText(getContext(), "Unable to log out", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                });
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

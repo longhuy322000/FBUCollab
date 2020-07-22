@@ -48,6 +48,7 @@ public class HomeFragment extends ProjectsFragment {
             }
         });
 
+        binding.progressBar.setVisibility(View.VISIBLE);
         projectViewModel.getAllProjects();
         projectViewModel.getProjects().observe(getViewLifecycleOwner(), new Observer<List<Project>>() {
             @Override
@@ -57,8 +58,10 @@ public class HomeFragment extends ProjectsFragment {
                     clearProjects();
                     addAllProjects(projectsFromModel);
                     binding.swipeContainer.setRefreshing(false);
+                    binding.progressBar.setVisibility(View.GONE);
                 }
                 else {
+                    binding.progressBar.setVisibility(View.VISIBLE);
                     clearProjects();
                 }
             }

@@ -1,6 +1,7 @@
 package com.example.collab.project_details;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +64,8 @@ public class ApplyDialogFragment extends DialogFragment {
                 .load(user.getParseFile(User.KEY_IMAGE).getUrl())
                 .into(binding.ivUserImage);
         binding.tvUsername.setText(user.getString(User.KEY_FULL_NAME));
-        binding.tvWhyLabel.setText("Why are you interested in being part of " + project.getProjectName() + "?");
+        String str = "Why are you interested in being part of <b>" + project.getProjectName() + "</b>?";
+        binding.tvWhyLabel.setText(Html.fromHtml(str));
         // Show soft keyboard automatically and request focus to field
         binding.etDescription.requestFocus();
         getDialog().getWindow().setSoftInputMode(

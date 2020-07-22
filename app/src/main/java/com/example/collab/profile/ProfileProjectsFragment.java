@@ -43,6 +43,7 @@ public class ProfileProjectsFragment extends HomeFragment {
             }
         });
 
+        binding.progressBar.setVisibility(View.VISIBLE);
         userViewModel.currentUser.observe(getViewLifecycleOwner(), new Observer<ParseUser>() {
             @Override
             public void onChanged(ParseUser parseUser) {
@@ -60,14 +61,19 @@ public class ProfileProjectsFragment extends HomeFragment {
         projectViewModel.getProjects().observe(getViewLifecycleOwner(), new Observer<List<Project>>() {
             @Override
             public void onChanged(List<Project> projectsFromModel) {
-                if (!projectsFromModel.isEmpty()){
+                if (projectsFromModel != null) {
+                    binding.progressBar.setVisibility(View.GONE);
+                    if (projectsFromModel.isEmpty()) {
+                        binding.tvNoProjects.setVisibility(View.VISIBLE);
+                        clearProjects();
+                        return;
+                    }
+
+                    binding.tvNoProjects.setVisibility(View.GONE);
                     Log.i(TAG, "got projects from model ");
                     clearProjects();
                     addAllProjects(projectsFromModel);
                     binding.swipeContainer.setRefreshing(false);
-                }
-                else {
-                    clearProjects();
                 }
             }
         });

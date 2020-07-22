@@ -61,7 +61,10 @@ public class ProjectsRepository {
                     Log.e(TAG, "Issues with query projects", e);
                     return;
                 }
-                queryLikesForProjects(projectsFromDatabase);
+                if (projectsFromDatabase.isEmpty()) {
+                    projects.setValue(projectsFromDatabase);
+                }
+                else queryLikesForProjects(projectsFromDatabase);
             }
         });
     }
@@ -78,7 +81,10 @@ public class ProjectsRepository {
                     Log.e(TAG, "Issues with query projects", e);
                     return;
                 }
-                queryLikesForProjects(projectsFromDatabase);
+                if (projectsFromDatabase.isEmpty()) {
+                    projects.setValue(projectsFromDatabase);
+                }
+                else queryLikesForProjects(projectsFromDatabase);
             }
         });
     }
@@ -101,7 +107,10 @@ public class ProjectsRepository {
                 for (Request request: requests) {
                     temp.add(request.getProject());
                 }
-                queryLikesForProjects(temp);
+                if (temp.isEmpty()) {
+                    projects.setValue(temp);
+                }
+                else queryLikesForProjects(temp);
             }
         });
     }
@@ -135,7 +144,6 @@ public class ProjectsRepository {
                         Log.e(TAG, "Issues with getting likesNum", e);
                         return;
                     }
-                    Log.i(TAG, projectsFromDatabase.get(finalI).getObjectId() + " " + objects.isEmpty());
                     projectsFromDatabase.get(finalI).setLiked(!objects.isEmpty());
                     projectsFromDatabase.get(finalI).setUserLike(!objects.isEmpty() ? objects.get(0) : null);
                     projects.setValue(projectsFromDatabase);
