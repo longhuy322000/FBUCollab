@@ -25,7 +25,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 ### Requirements
 
 | Requirement      | Details |
-   | ------------- | -------- | ------------|
+   | ------------- | -------- |
    | App has multiple views | (see screen archetypes below)
    | App interacts with a database (e.g. Parse) | Use Parse to store users, projects, comments, likes, requests, notifications
    | User can log in/log out of the app | User can log in/log out of the app
