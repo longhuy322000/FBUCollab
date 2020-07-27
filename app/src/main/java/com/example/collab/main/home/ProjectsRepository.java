@@ -7,19 +7,26 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.collab.models.Like;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
+import com.example.collab.models.User;
 import com.parse.CountCallback;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProjectsRepository {
 
     private static final String TAG = "ProjectsRepository";
 
+    private static ParseUser user;
     public static ProjectsRepository projectsRepository;
     public MutableLiveData<List<Project>> projects;
 
@@ -64,7 +71,7 @@ public class ProjectsRepository {
                 if (projectsFromDatabase.isEmpty()) {
                     projects.setValue(projectsFromDatabase);
                 }
-                else queryLikesForProjects(projectsFromDatabase);
+                else getCurrentUser(projectsFromDatabase);
             }
         });
     }
@@ -149,6 +156,47 @@ public class ProjectsRepository {
                     projects.setValue(projectsFromDatabase);
                 }
             });
+        }
+    }
+
+    private void getCurrentUser(final List<Project> projects) {
+        ParseUser.getCurrentUser().fetchInBackground(new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser object, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issues with getting current user");
+                    return;
+                }
+                user = object;
+                Collections.sort(projects, new HomeProjectsComparator());
+                queryLikesForProjects(projects);
+            }
+        });
+    }
+
+    public class HomeProjectsComparator implements Comparator<Project> {
+        @Override
+        public int compare(Project p1, Project p2) {
+            int num1 = 0, num2 = 0;
+            if (user.getList(User.KEY_SKILLS) == null)
+                return 0;
+            for (int i=0; i<p1.getSkillsList().size(); i++) {
+                for (int j=0; j<user.getList(User.KEY_SKILLS).size(); j++) {
+                    if (p1.getSkillsList().get(i).toLowerCase().equals(user.<String>getList(User.KEY_SKILLS).get(j).toLowerCase()))
+                        num1++;
+                }
+            }
+            for (int i=0; i<p2.getSkillsList().size(); i++) {
+                for (int j=0; j<user.getList(User.KEY_SKILLS).size(); j++) {
+                    if (p2.getSkillsList().get(i).toLowerCase().equals(user.<String>getList(User.KEY_SKILLS).get(j).toLowerCase()))
+                        num2++;
+                }
+            }
+            if (p1.getCapacity() == p1.getSpots())
+                return 1;
+            else if (p2.getCapacity() == p2.getSpots())
+                return -1;
+            return Integer.valueOf(num2).compareTo(Integer.valueOf(num1));
         }
     }
 }

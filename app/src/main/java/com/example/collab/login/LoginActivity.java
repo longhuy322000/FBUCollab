@@ -129,7 +129,6 @@ public class LoginActivity extends AppCompatActivity {
             });
         } catch (ApiException e) {
             Log.w(TAG, "signInResult: failed code = " + e.getStatusCode());
-            Toast.makeText(this, "Unable to sign in with Google", Toast.LENGTH_SHORT).show();
         }
     }
 

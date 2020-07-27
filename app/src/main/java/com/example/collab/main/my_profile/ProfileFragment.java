@@ -25,12 +25,14 @@ import com.example.collab.R;
 import com.example.collab.databinding.FragmentProfileBinding;
 import com.example.collab.login.LoginActivity;
 import com.example.collab.main.home.ProjectsRepository;
+import com.example.collab.main.my_profile.applicants.AllApplicantsActivity;
+import com.example.collab.main.my_profile.edit_profile.EditProfileActivity;
+import com.example.collab.main.my_profile.my_requests.MyRequestsActivity;
 import com.example.collab.models.User;
 import com.example.collab.profile.AboutFragment;
-import com.example.collab.profile.EditProfileActivity;
 import com.example.collab.profile.PartOfFragment;
 import com.example.collab.profile.ProfileProjectsFragment;
-import com.example.collab.profile.UserViewModel;
+import com.example.collab.shared.UserViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -139,20 +141,23 @@ public class ProfileFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit_profile:
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                intent.putExtra(ParseUser.class.getName(), user);
-                startActivity(intent);
+                Intent profileIntent = new Intent(getActivity(), EditProfileActivity.class);
+                profileIntent.putExtra(ParseUser.class.getName(), user);
+                startActivity(profileIntent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
             case R.id.action_my_requests:
-
+                Intent requestIntent = new Intent(getActivity(), MyRequestsActivity.class);
+                startActivity(requestIntent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
             case R.id.action_see_applicants:
-
+                Intent applicantIntent = new Intent(getActivity(), AllApplicantsActivity.class);
+                startActivity(applicantIntent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
             case R.id.action_logout:
                 googleSignInClient.signOut();
-
                 ParseUser.logOutInBackground(new LogOutCallback() {
                     @Override
                     public void done(ParseException e) {

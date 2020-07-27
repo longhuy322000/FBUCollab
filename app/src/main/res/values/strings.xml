@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Collab</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="github_token_instruction">Please go to settings in your Github account -> Developer Settings -> Personal access tokens -> Generate new token
+        -> Check repo and paste the token here</string>
 </resources>

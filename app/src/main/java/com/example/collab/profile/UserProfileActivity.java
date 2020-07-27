@@ -10,6 +10,7 @@ import com.example.collab.R;
 import com.example.collab.databinding.ActivityUserProfileBinding;
 import com.example.collab.main.my_profile.ProfileFragment;
 import com.example.collab.main.home.ProjectsRepository;
+import com.example.collab.shared.UserViewModel;
 import com.parse.ParseUser;
 
 public class UserProfileActivity extends AppCompatActivity {

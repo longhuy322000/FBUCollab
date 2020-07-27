@@ -1,4 +1,4 @@
-package com.example.collab.profile;
+package com.example.collab.shared;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

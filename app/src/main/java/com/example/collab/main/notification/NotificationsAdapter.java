@@ -102,12 +102,12 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                 case Notification.KEY_APPLICANT_RECEIVE_RESULT:
                     switch (request.getStatus()) {
                         case Request.KEY_APPROVED_STATUS:
-                            str = "<b>" + user.getString(User.KEY_FULL_NAME) + "</b>" + " has accepted your request to join " + " <b>"
+                            str = "<b>" + project.getOwner().getString(User.KEY_FULL_NAME) + "</b>" + " has accepted your request to join " + " <b>"
                                     + project.getProjectName() + "</b> project";
                             binding.tvContent.setText(Html.fromHtml(str));
                             break;
                         case Request.KEY_DECLINED_STATUS:
-                            str = "<b>" + user.getString(User.KEY_FULL_NAME) + "</b>" + " has declined your request to join " + " <b>"
+                            str = "<b>" + project.getOwner().getString(User.KEY_FULL_NAME) + "</b>" + " has declined your request to join " + " <b>"
                                     + project.getProjectName() + "</b> project";
                             binding.tvContent.setText(Html.fromHtml(str));
                             break;

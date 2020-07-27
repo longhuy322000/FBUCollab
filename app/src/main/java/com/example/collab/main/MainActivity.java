@@ -18,7 +18,7 @@ import com.example.collab.main.home.HomeFragment;
 import com.example.collab.main.my_profile.ProfileFragment;
 import com.example.collab.main.notification.NotificationFragment;
 import com.example.collab.main.notification.NotificationsViewModel;
-import com.example.collab.profile.UserViewModel;
+import com.example.collab.shared.UserViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.GetCallback;
@@ -55,12 +55,13 @@ public class MainActivity extends AppCompatActivity {
         notificationsViewModel.unseenCount.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer num) {
+                Log.i(TAG, "notificationsNum: " + num);
+                badge.setNumber(num);
                 if (num == 0) {
                     badge.setVisible(false);
                 }
                 else {
                     badge.setVisible(true);
-                    badge.setNumber(num);
                 }
             }
         });
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             binding.bottomNavigation.setSelectedItemId(R.id.action_home);
             previousTab = KEY_HOME_FRAGMENT;
         }
+
 
     }
 

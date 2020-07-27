@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.collab.databinding.FragmentAboutBinding;
 import com.example.collab.shared.Helper;
 import com.example.collab.models.User;
+import com.example.collab.shared.UserViewModel;
 import com.parse.ParseUser;
 
 public class AboutFragment extends Fragment {

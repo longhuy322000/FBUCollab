@@ -33,12 +33,13 @@
     <RelativeLayout
         android:id="@+id/rlSkills"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/rlSchool">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSchool"
+        android:minHeight="50dp">
 
         <TextView
             android:id="@+id/tvSkillsLabel"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:text="Skills: "
@@ -53,5 +54,61 @@
             android:textAlignment="textEnd"
             tools:text="AWS, HTML, Javascript, C++, Python" />
     </RelativeLayout>
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rlGithubUsername"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/rlSkills"-->
+<!--        android:layout_centerVertical="false"-->
+<!--        android:minHeight="50dp">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvGithubUsernameLabel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:text="Github Username: "-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvGithubUsername"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:textAlignment="textEnd"-->
+<!--            tools:text="githubusername" />-->
+<!--    </RelativeLayout>-->
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rlGithubUrl"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/rlGithubUsername"-->
+<!--        android:minHeight="50dp">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvGithubUrlLabel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:text="Github URL: "-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvGithubUrl"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:autoLink="web"-->
+<!--            android:textAlignment="textEnd"-->
+<!--            tools:text="URL" />-->
+<!--    </RelativeLayout>-->
 
 </RelativeLayout>

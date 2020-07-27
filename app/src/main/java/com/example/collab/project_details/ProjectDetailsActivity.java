@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.collab.R;
 import com.example.collab.databinding.ActivityProjectDetailsBinding;
+import com.example.collab.shared.GithubClient;
 import com.example.collab.shared.Helper;
 import com.example.collab.models.Comment;
 import com.example.collab.models.Like;
@@ -117,6 +118,10 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
         binding.tvRelativeTimestamp.setText(Helper.getRelativeTimeAgo(project.getCreatedAt().toString()));
         binding.tvSkillsList.setText(Helper.listToString(project.getSkillsList()));
         binding.tvDuration.setText(project.getDuration());
+        if (project.getGithubRepoName() == null || project.getGithubRepoName().isEmpty()){
+            binding.tvGithubRepo.setText("Not available");
+        }
+        else binding.tvGithubRepo.setText(GithubClient.GITHUB_BASE_URL + project.getOwner().getString(User.KEY_GITHUB_USERNAME) + "/" + project.getGithubRepoName());
         if (project.getLiked())
             setLikeActive();
         else setLikeInactive();
@@ -147,6 +152,10 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
         // check if the user is the owner of the project
         if (project.getOwner().getUsername().equals(ParseUser.getCurrentUser().getUsername()))
             binding.btnApply.setVisibility(View.GONE);
+        else if (project.getCapacity() == project.getSpots()) {
+            binding.btnApply.setEnabled(false);
+            binding.btnApply.setText("Project closed");
+        }
         else checkApplied();
 
         // postComment button onclick

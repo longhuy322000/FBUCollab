@@ -197,5 +197,95 @@
             android:layout_marginTop="8dp"
             android:text="Save" />
 
+        <View
+            android:id="@+id/githubBorder"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/btnSave"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:background="@color/lightGrey" />
+
+        <TextView
+            android:id="@+id/tvGithubUsernameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/githubBorder"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Github Username: "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvGithubUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/githubBorder"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            tools:text="githubusername" />
+
+        <TextView
+            android:id="@+id/tvGithubUrlLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGithubUsernameLabel"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Github Url: "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvGithubUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGithubUsername"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:autoLink="web"
+            tools:text="url" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilGithubToken"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGithubUrlLabel"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/btnVerifyGithubToken"
+            android:hint="Github token">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etGithubToken"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnVerifyGithubToken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGithubUrl"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Verify" />
+
+        <TextView
+            android:id="@+id/tvGithubTokenInstruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tilGithubToken"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/github_token_instruction" />
+
     </RelativeLayout>
 </RelativeLayout>

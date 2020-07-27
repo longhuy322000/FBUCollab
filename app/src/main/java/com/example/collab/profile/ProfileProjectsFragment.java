@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collab.main.home.HomeFragment;
 import com.example.collab.models.Project;
 import com.example.collab.main.home.ProjectsViewModel;
+import com.example.collab.shared.UserViewModel;
 import com.parse.ParseUser;
 
 import java.util.List;

@@ -44,9 +44,9 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:4.1.0'
     implementation 'jp.co.cyberagent.android:gpuimage:2.0.4'
 
-    implementation 'com.github.parse-community.Parse-SDK-Android:parse:1.24.2'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1' // for logging API calls to LogCat
+    implementation 'com.github.parse-community.Parse-SDK-Android:parse:1.24.1'
     implementation 'com.github.parse-community:ParseLiveQuery-Android:1.1.0' // for Parse Live Queries
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1' // for logging API calls to LogCat
 
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
@@ -54,4 +54,6 @@ dependencies {
 
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
+
+    implementation 'com.codepath.libraries:asynchttpclient:0.0.9'
 }

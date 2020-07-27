@@ -42,188 +42,220 @@
         android:layout_below="@id/toolbar"
         android:background="@color/lightGrey" />
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/menuBorder"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        android:layout_below="@id/menuBorder">
 
-        <TextView
-            android:id="@+id/tvProjectNameLabel"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/yanone_kaffeesatz_bold"
-            android:gravity="center_horizontal"
-            android:text="Project Name"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilProjectName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvProjectNameLabel"
-            android:hint="Project Name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProjectName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textVisiblePassword|textNoSuggestions" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/ivProjectImage"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_below="@id/tilProjectName"
-            android:layout_marginTop="5dp"
-            android:visibility="gone"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"
-            tools:visibility="visible" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDescription"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ivProjectImage"
-            android:hint="Description">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDescription"
+            <TextView
+                android:id="@+id/tvProjectNameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top|left"
-                android:minLines="2" />
+                android:fontFamily="@font/yanone_kaffeesatz_bold"
+                android:gravity="center_horizontal"
+                android:text="Project Name"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSpots"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tilDescription"
-            android:hint="Capacity">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCapacity"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilProjectName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:inputType="numberSigned|number" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvProjectNameLabel"
+                android:hint="Project Name">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etProjectName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textVisiblePassword|textNoSuggestions" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTimeLength"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tilDescription"
-            android:layout_alignParentEnd="true"
-            android:hint="Time Length">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTimeLength"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilGithubRepoName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilProjectName"
+                android:hint="Github Repo Name">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etGithubRepoName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textVisiblePassword|textNoSuggestions" />
 
-        <TextView
-            android:id="@+id/tvSkillsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tilSpots"
-            android:layout_marginTop="5dp"
-            android:text="Skills: " />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tvSkillList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tilSpots"
-            android:layout_marginTop="5dp"
-            android:layout_toEndOf="@+id/tvSkillsLabel"
-            tools:text="AWS, Firebase, Google Cloud" />
+            <ImageView
+                android:id="@+id/ivProjectImage"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_below="@id/tilGithubRepoName"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                tools:visibility="visible" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilAddSkill"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvSkillList"
-            android:layout_toRightOf="@id/tvSkillsLabel"
-            android:hint="Skill name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etAddSkill"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivProjectImage"
+                android:hint="Description">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|left"
+                    android:minLines="2" />
 
-        <Button
-            android:id="@+id/btnAddSkill"
-            style="@style/IconOnlyButton"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvSkillList"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toRightOf="@id/tilAddSkill"
-            android:backgroundTint="@color/colorAccent"
-            android:gravity="center_horizontal"
-            app:icon="@drawable/ic_baseline_add_24" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/lnButtonContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tilAddSkill"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSpots"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilDescription"
+                android:hint="Capacity">
 
-            <Button
-                android:id="@+id/btnTakeImage"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCapacity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="16dp"
+                    android:inputType="numberSigned|number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTimeLength"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Take Image" />
+                android:layout_below="@id/tilDescription"
+                android:layout_alignParentEnd="true"
+                android:hint="Time Length">
 
-            <Button
-                android:id="@+id/btnSelectImage"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTimeLength"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvSkillsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilSpots"
+                android:layout_marginTop="5dp"
+                android:text="Skills: " />
+
+            <TextView
+                android:id="@+id/tvSkillList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tilSpots"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/tvSkillsLabel"
+                tools:text="AWS, Firebase, Google Cloud" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAddSkill"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Select Image" />
-        </LinearLayout>
+                android:layout_below="@+id/tvSkillList"
+                android:layout_toRightOf="@id/tvSkillsLabel"
+                android:hint="Skill name">
 
-        <Button
-            android:id="@+id/btnPost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lnButtonContainer"
-            android:layout_centerHorizontal="true"
-            android:text="Post" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAddSkill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lnButtonContainer"
-            android:layout_centerHorizontal="true"
-            android:progressDrawable="@drawable/circular_progress_bar"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/btnAddSkill"
+                style="@style/IconOnlyButton"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvSkillList"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/tilAddSkill"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center_horizontal"
+                app:icon="@drawable/ic_baseline_add_24" />
 
+            <LinearLayout
+                android:id="@+id/lnButtonContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilAddSkill"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnTakeImage"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Take Image" />
+
+                <Button
+                    android:id="@+id/btnSelectImage"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Select Image" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvNeedGithub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lnButtonContainer"
+                android:gravity="center_horizontal"
+                android:text="Please add your Github account in Edit Profile page to post a new project"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvNeedGithub"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="16dp"
+                android:text="Post" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lnButtonContainer"
+                android:layout_centerHorizontal="true"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_marginBottom="16dp" />
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

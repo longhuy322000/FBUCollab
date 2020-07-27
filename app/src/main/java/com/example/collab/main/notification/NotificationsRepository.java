@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.collab.models.Notification;
+import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.parse.CountCallback;
 import com.parse.FindCallback;
@@ -53,6 +54,7 @@ public class NotificationsRepository {
         query.whereEqualTo(Notification.KEY_DELIVER_TO, ParseUser.getCurrentUser());
         query.include(Notification.KEY_REQUEST);
         query.include(Notification.KEY_REQUEST + "." + Request.KEY_PROJECT);
+        query.include(Notification.KEY_REQUEST + "." + Request.KEY_PROJECT + "." + Project.KEY_OWNER);
         query.include(Notification.KEY_REQUEST + "." + Request.KEY_REQUESTED_USER);
         query.addDescendingOrder(Notification.KEY_CREATED_AT);
         query.findInBackground(new FindCallback<Notification>() {

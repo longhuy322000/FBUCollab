@@ -27,6 +27,7 @@ public class Project extends ParseObject {
     public static final String KEY_STATUS = "status";
     public static final String KEY_OWNER = "owner";
     public static final String KEY_CREATED_AT = "createdAt";
+    public static final String KEY_GITHUB_REPO_NAME = "githubRepoName";
 
     public static final String KEY_STATUS_OPEN = "open";
     public static final String KEY_STATUS_CLOSED = "closed";
@@ -87,6 +88,10 @@ public class Project extends ParseObject {
 
     public Like getUserLike() { return userLike; }
 
+    public String getGithubRepoName() {
+        return getString(KEY_GITHUB_REPO_NAME);
+    }
+
     // setters start here
 
     public void setProjectName(String projectName) {
@@ -136,4 +141,6 @@ public class Project extends ParseObject {
     public void decrementLikesNum() { likesNum -= 1; }
 
     public void setUserLike(Like like) { userLike = like; }
+
+    public void setGithubRepoName(String repoName) { put(KEY_GITHUB_REPO_NAME, repoName); }
 }

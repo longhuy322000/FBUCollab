@@ -16,8 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".profile.UserProfileActivity"></activity>
-        <activity android:name=".profile.EditProfileActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -29,6 +27,10 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
+        <activity android:name=".main.my_profile.applicants.AllApplicantsActivity"></activity>
+        <activity android:name=".main.my_profile.my_requests.MyRequestsActivity"></activity>
+        <activity android:name=".profile.UserProfileActivity" />
+        <activity android:name=".main.my_profile.edit_profile.EditProfileActivity" />
         <activity android:name=".project_details.ProjectDetailsActivity" />
         <activity android:name=".new_project.NewProjectActivity" />
         <activity android:name=".login.LoginActivity">

@@ -1,8 +1,9 @@
-package com.example.collab.profile;
+package com.example.collab.main.my_profile.edit_profile;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,12 +14,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.collab.R;
 import com.example.collab.databinding.ActivityEditProfileBinding;
 import com.example.collab.main.MainActivity;
 import com.example.collab.main.my_profile.ProfileFragment;
 import com.example.collab.models.User;
+import com.example.collab.project_details.ApplyDialogFragment;
 import com.example.collab.shared.CameraHelper;
+import com.example.collab.shared.GithubClient;
 import com.example.collab.shared.Helper;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -29,14 +33,15 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditProfileActivity extends AppCompatActivity {
+import okhttp3.Headers;
+
+public class EditProfileActivity extends AppCompatActivity implements VerifyGithubFragment.VerifyGithubListener {
 
     private static final String TAG = "EditProfileActivity";
     ParseUser user;
     List<String> skills;
     CameraHelper cameraHelper;
     ParseFile photoFile;
-    UserViewModel userViewModel;
     ActivityEditProfileBinding binding;
 
     @Override
@@ -127,6 +132,36 @@ public class EditProfileActivity extends AppCompatActivity {
                 });
             }
         });
+
+        if (user.getString(User.KEY_GITHUB_TOKEN) == null || user.getString(User.KEY_GITHUB_TOKEN).isEmpty()) {
+            binding.tvGithubUsername.setText("No Github Account");
+            binding.tvGithubUrl.setText("No Github Account");
+        }
+        else {
+            binding.tvGithubUsername.setText(user.getString(User.KEY_GITHUB_USERNAME));
+            binding.tvGithubUrl.setText(GithubClient.GITHUB_BASE_URL + user.getString(User.KEY_GITHUB_USERNAME));
+        }
+
+        binding.btnVerifyGithubToken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String token = binding.etGithubToken.getText().toString();
+                GithubClient.checkValidUser(token, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Helper.hideKeyboard(EditProfileActivity.this);
+                        FragmentManager fm = getSupportFragmentManager();
+                        VerifyGithubFragment verifyGithubFragment = VerifyGithubFragment.newInstance(token, json.jsonObject.toString());
+                        verifyGithubFragment.show(fm, "fragment_apply_dialog");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Toast.makeText(EditProfileActivity.this, "Invalid token. Please retry again!", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -161,5 +196,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 Toast.makeText(EditProfileActivity.this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void onFinishVerifyDialog(String username) {
+        Toast.makeText(this, "Successfully added Github account", Toast.LENGTH_SHORT).show();
+        binding.tvGithubUsername.setText(username);
+        binding.etGithubToken.setText(GithubClient.GITHUB_BASE_URL + "username");
     }
 }

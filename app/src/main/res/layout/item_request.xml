@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:gravity="right"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp">
+
+            <TextView
+                android:id="@+id/tvProjectName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yanone_kaffeesatz_bold"
+                android:gravity="center_horizontal"
+                android:textSize="25sp"
+                tools:text="Project Name" />
+
+            <ImageView
+                android:id="@+id/ivProjectImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/tvProjectName"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="0dp"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivProjectImage"
+                android:layout_marginTop="8dp"
+                android:text="Project Description..." />
+
+            <RelativeLayout
+                android:id="@+id/rlOwner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDescription"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tvOwnerLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Owner: "
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivUserImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@id/tvOwnerLabel"
+                    app:srcCompat="@drawable/default_user" />
+
+                <TextView
+                    android:id="@+id/tvUserFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@id/ivUserImage"
+                    android:text="Full Name"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlRequest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlOwner"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tvRequestLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvRequestContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@id/tvRequestLabel"
+                    tools:text="Request Content" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlRequest"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:enabled="false"
+                android:text="Button" />
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>
