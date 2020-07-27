@@ -10,15 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.example.collab.databinding.FragmentProcessRequestDialogBinding;
 import com.example.collab.models.Notification;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.example.collab.models.User;
+import com.example.collab.shared.GithubClient;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import org.json.JSONObject;
 
 public class ProcessRequestDialogFragment extends DialogFragment {
 
@@ -55,12 +60,14 @@ public class ProcessRequestDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         request = getArguments().getParcelable(Request.class.getName());
-        ParseUser user = request.getRequestedUser();
+        final ParseUser requestedUser = request.getRequestedUser();
+        final Project project = request.getProject();
+        final ParseUser owner = project.getOwner();
 
         Glide.with(getContext())
-                .load(user.getParseFile(User.KEY_IMAGE).getUrl())
+                .load(requestedUser.getParseFile(User.KEY_IMAGE).getUrl())
                 .into(binding.ivUserImage);
-        binding.tvUsername.setText(user.getString(User.KEY_FULL_NAME));
+        binding.tvUsername.setText(requestedUser.getString(User.KEY_FULL_NAME));
         binding.tvContent.setText(request.getDescription());
 
         if (request.getStatus() != Request.KEY_PENDING_STATUS) {
@@ -95,7 +102,6 @@ public class ProcessRequestDialogFragment extends DialogFragment {
             public void onClick(View view) {
                 request.setStatus(Request.KEY_APPROVED_STATUS);
                 saveRequest();
-                final Project project = request.getProject();
                 project.setSpots(project.getSpots() + 1);
                 project.saveInBackground(new SaveCallback() {
                     @Override
@@ -106,22 +112,6 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                         }
                     }
                 });
-            }
-        });
-    }
-
-    private void saveRequest() {
-        request.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                final ProcessRequestDialogListener listener = (ProcessRequestDialogListener) getTargetFragment();
-                if (e != null) {
-                    Log.e(TAG, "Issues with saving decline status in request", e);
-                    listener.onFinishDialog("Unable to process request", false);
-                }
-                else {
-                    listener.onFinishDialog("Successfully processed request", false);
-                }
 
                 // Create in notification
                 Notification notification = new Notification();
@@ -138,6 +128,37 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                         dismiss();
                     }
                 });
+
+                // add user as the collaborator in repo
+                GithubClient.addCollaboratorToProject(getContext(), owner.getString(User.KEY_GITHUB_TOKEN),
+                        owner.getString(User.KEY_GITHUB_USERNAME), project.getGithubRepoName(), requestedUser.getString(User.KEY_GITHUB_USERNAME),
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.i(TAG,"Successfully added requested user as collaborator");
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e(TAG, "Issues with adding requested user as collaborator", error);
+                            }
+                        });
+            }
+        });
+    }
+
+    private void saveRequest() {
+        request.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                final ProcessRequestDialogListener listener = (ProcessRequestDialogListener) getTargetFragment();
+                if (e != null) {
+                    Log.e(TAG, "Issues with saving decline status in request", e);
+                    listener.onFinishDialog("Unable to process request", false);
+                }
+                else {
+                    listener.onFinishDialog("Successfully processed request", false);
+                }
             }
         });
     }

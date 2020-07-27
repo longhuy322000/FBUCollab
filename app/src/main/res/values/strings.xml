@@ -2,4 +2,5 @@
     <string name="app_name">Collab</string>
     <string name="github_token_instruction">Please go to settings in your Github account -> Developer Settings -> Personal access tokens -> Generate new token
         -> Check repo and paste the token here</string>
+    <string name="need_github_account">Please add your Github account in Edit Profile page to use this feature</string>
 </resources>

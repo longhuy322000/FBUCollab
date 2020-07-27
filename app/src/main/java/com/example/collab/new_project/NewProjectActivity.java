@@ -2,8 +2,6 @@ package com.example.collab.new_project;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,10 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.RequestHeaders;
-import com.codepath.asynchttpclient.RequestParams;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.collab.R;
 import com.example.collab.models.User;
 import com.example.collab.project_details.ProjectDetailsActivity;
@@ -29,11 +25,9 @@ import com.example.collab.shared.Helper;
 import com.example.collab.databinding.ActivityNewProjectBinding;
 import com.example.collab.models.Project;
 import com.example.collab.main.home.ProjectsRepository;
-import com.example.collab.shared.UserViewModel;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -152,18 +146,18 @@ public class NewProjectActivity extends AppCompatActivity {
             body.put(GithubClient.KEY_REPO_NAME, binding.etGithubRepoName.getText().toString());
             body.put(GithubClient.KEY_REPO_DESCRIPTION, binding.etDescription.getText().toString());
             body.put(GithubClient.KEY_REPO_PRIVATE, false);
-            GithubClient.createNewRepo(currentUser.getString(User.KEY_GITHUB_TOKEN), body, new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Headers headers, JSON json) {
-                    Log.i(TAG, "Successfully created Github repo");
-                }
-
-                @Override
-                public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                    Toast.makeText(NewProjectActivity.this, "Unable to create Github repo", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Unable to create Github repo", throwable);
-                }
-            });
+            GithubClient.createNewRepo(this, currentUser.getString(User.KEY_GITHUB_TOKEN), body.toString(),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i(TAG, "Successfully created Github repo");
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e(TAG, "Unable to create Github repo", error);
+                        }
+                    });
         } catch (JSONException e) {
             Log.e(TAG, "Hit json exception while creating github repo", e);
         }

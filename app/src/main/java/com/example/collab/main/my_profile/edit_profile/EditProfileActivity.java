@@ -13,14 +13,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.collab.R;
 import com.example.collab.databinding.ActivityEditProfileBinding;
 import com.example.collab.main.MainActivity;
 import com.example.collab.main.my_profile.ProfileFragment;
 import com.example.collab.models.User;
-import com.example.collab.project_details.ApplyDialogFragment;
 import com.example.collab.shared.CameraHelper;
 import com.example.collab.shared.GithubClient;
 import com.example.collab.shared.Helper;
@@ -29,11 +29,12 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Headers;
 
 public class EditProfileActivity extends AppCompatActivity implements VerifyGithubFragment.VerifyGithubListener {
 
@@ -146,17 +147,17 @@ public class EditProfileActivity extends AppCompatActivity implements VerifyGith
             @Override
             public void onClick(View view) {
                 final String token = binding.etGithubToken.getText().toString();
-                GithubClient.checkValidUser(token, new JsonHttpResponseHandler() {
+                GithubClient.checkValidUser(EditProfileActivity.this, token, new Response.Listener<JSONObject>() {
                     @Override
-                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                    public void onResponse(JSONObject response) {
                         Helper.hideKeyboard(EditProfileActivity.this);
                         FragmentManager fm = getSupportFragmentManager();
-                        VerifyGithubFragment verifyGithubFragment = VerifyGithubFragment.newInstance(token, json.jsonObject.toString());
+                        VerifyGithubFragment verifyGithubFragment = VerifyGithubFragment.newInstance(token, response.toString());
                         verifyGithubFragment.show(fm, "fragment_apply_dialog");
                     }
-
+                }, new Response.ErrorListener() {
                     @Override
-                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                    public void onErrorResponse(VolleyError error) {
                         Toast.makeText(EditProfileActivity.this, "Invalid token. Please retry again!", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -202,6 +203,7 @@ public class EditProfileActivity extends AppCompatActivity implements VerifyGith
     public void onFinishVerifyDialog(String username) {
         Toast.makeText(this, "Successfully added Github account", Toast.LENGTH_SHORT).show();
         binding.tvGithubUsername.setText(username);
-        binding.etGithubToken.setText(GithubClient.GITHUB_BASE_URL + "username");
+        binding.tvGithubUrl.setText(GithubClient.GITHUB_BASE_URL + username);
+        binding.etGithubToken.setText("");
     }
 }

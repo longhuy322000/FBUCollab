@@ -30,17 +30,28 @@
             tools:text="University of Southern California" />
     </RelativeLayout>
 
+    <View
+        android:id="@+id/schoolBorder"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/rlSchool"
+        android:layout_alignParentTop="false"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:background="@color/lightGrey" />
+
     <RelativeLayout
         android:id="@+id/rlSkills"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rlSchool"
+        android:layout_below="@id/schoolBorder"
         android:minHeight="50dp">
 
         <TextView
             android:id="@+id/tvSkillsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginStart="32dp"
             android:text="Skills: "
             android:textStyle="bold" />
@@ -50,65 +61,86 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="32dp"
             android:textAlignment="textEnd"
             tools:text="AWS, HTML, Javascript, C++, Python" />
     </RelativeLayout>
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/rlGithubUsername"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/rlSkills"-->
-<!--        android:layout_centerVertical="false"-->
-<!--        android:minHeight="50dp">-->
+    <View
+        android:id="@+id/skillsBorder"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/rlSkills"
+        android:layout_alignParentTop="false"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:background="@color/lightGrey" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvGithubUsernameLabel"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_marginStart="32dp"-->
-<!--            android:text="Github Username: "-->
-<!--            android:textStyle="bold" />-->
+    <RelativeLayout
+        android:id="@+id/rlGithubUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/skillsBorder"
+        android:layout_centerVertical="false"
+        android:minHeight="50dp">
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvGithubUsername"-->
-<!--            android:layout_width="200dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_marginEnd="32dp"-->
-<!--            android:textAlignment="textEnd"-->
-<!--            tools:text="githubusername" />-->
-<!--    </RelativeLayout>-->
+        <TextView
+            android:id="@+id/tvGithubUsernameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="32dp"
+            android:text="Github Username: "
+            android:textStyle="bold" />
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/rlGithubUrl"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/rlGithubUsername"-->
-<!--        android:minHeight="50dp">-->
+        <TextView
+            android:id="@+id/tvGithubUsername"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="32dp"
+            android:textAlignment="textEnd"
+            tools:text="githubusername" />
+    </RelativeLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvGithubUrlLabel"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_marginStart="32dp"-->
-<!--            android:text="Github URL: "-->
-<!--            android:textStyle="bold" />-->
+    <View
+        android:id="@+id/usernameBorder"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/rlGithubUsername"
+        android:layout_alignParentTop="false"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:background="@color/lightGrey" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvGithubUrl"-->
-<!--            android:layout_width="200dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_marginEnd="32dp"-->
-<!--            android:autoLink="web"-->
-<!--            android:textAlignment="textEnd"-->
-<!--            tools:text="URL" />-->
-<!--    </RelativeLayout>-->
+    <RelativeLayout
+        android:id="@+id/rlGithubUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usernameBorder"
+        android:minHeight="50dp">
+
+        <TextView
+            android:id="@+id/tvGithubUrlLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="32dp"
+            android:text="Github URL: "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvGithubUrl"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="32dp"
+            android:autoLink="web"
+            android:textAlignment="textEnd"
+            tools:text="URL" />
+    </RelativeLayout>
 
 </RelativeLayout>

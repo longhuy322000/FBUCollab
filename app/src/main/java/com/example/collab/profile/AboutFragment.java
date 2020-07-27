@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.collab.databinding.FragmentAboutBinding;
+import com.example.collab.shared.GithubClient;
 import com.example.collab.shared.Helper;
 import com.example.collab.models.User;
 import com.example.collab.shared.UserViewModel;
@@ -55,5 +56,12 @@ public class AboutFragment extends Fragment {
     private void bind(ParseUser user) {
         binding.tvSchool.setText(user.getString(User.KEY_SCHOOL));
         binding.tvSkillsList.setText(Helper.listToString(user.<String>getList(User.KEY_SKILLS)));
+        if (user.getString(User.KEY_GITHUB_USERNAME) == null || user.getString(User.KEY_GITHUB_USERNAME).isEmpty()) {
+            binding.tvGithubUsername.setText("Not Available");
+            binding.tvGithubUrl.setText("Not Available");
+        } else {
+            binding.tvGithubUsername.setText(user.getString(User.KEY_GITHUB_USERNAME));
+            binding.tvGithubUrl.setText(GithubClient.getUserUrl(user.getString(User.KEY_GITHUB_USERNAME)));
+        }
     }
 }

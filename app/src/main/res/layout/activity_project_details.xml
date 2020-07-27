@@ -232,11 +232,24 @@
                     android:autoLink="web"
                     tools:text="URL" />
 
+                <TextView
+                    android:id="@+id/tvNeedGithubAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvRelativeTimestamp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/need_github_account"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
                 <Button
                     android:id="@+id/btnApply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvRelativeTimestamp"
+                    android:layout_below="@id/tvNeedGithubAccount"
                     android:layout_centerHorizontal="true"
                     android:text="Apply" />
 

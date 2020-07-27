@@ -139,6 +139,14 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
                 Glide.with(ProjectDetailsActivity.this)
                         .load(currentUser.getParseFile(User.KEY_IMAGE).getUrl())
                         .into(binding.ivUserCommentImage);
+
+                if (currentUser.getString(User.KEY_GITHUB_USERNAME) == null || currentUser.getString(User.KEY_GITHUB_USERNAME).isEmpty()) {
+                    binding.tvNeedGithubAccount.setVisibility(View.VISIBLE);
+                    binding.btnApply.setEnabled(false);
+                } else {
+                    binding.tvNeedGithubAccount.setVisibility(View.GONE);
+                    binding.btnApply.setEnabled(true);
+                }
             }
         });
 

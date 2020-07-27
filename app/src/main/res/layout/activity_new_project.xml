@@ -231,7 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lnButtonContainer"
                 android:gravity="center_horizontal"
-                android:text="Please add your Github account in Edit Profile page to post a new project"
+                android:text="@string/need_github_account"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
