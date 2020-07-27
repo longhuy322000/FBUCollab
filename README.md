@@ -1,5 +1,3 @@
-Original App Design Project - README Template
-===
 
 # Collab
 
@@ -22,20 +20,20 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 - **Habit:** Users can view the projects throughout the day and apply if they are interested
 - **Scope:** Collab is very narrow-focused, main targets college students who want to improve their CS knowledge and work on side projects
 
-## Product Spec
+## Product Spec    
 
 ### Requirements
 
 | Requirement      | Details |
    | ------------- | -------- | ------------|
    | App has multiple views | (see screen archetypes below)
-   | App interacts with a database (e.g. Parse) | Use Parse to store project info, user info, likes, comments
+   | App interacts with a database (e.g. Parse) | Use Parse to store users, projects, comments, likes, requests, notifications
    | User can log in/log out of the app | User can log in/log out of the app
-   | Use of camera | Project picture, user profile picture
-   | App integrates with SDK | Google Login SDK
+   | Use of camera | User can take a picture or select a picture from the gallery for the project image
+   | App integrates with SDK | Google Login SDK, Github SDK
    | App uses complex algorithm | Project ranking (sort, display projects based on likes, skills)
-   | App uses gesture recognizers | double-tap for like
-   | App uses animations | transition from MainActivity to ProjectDetailsActivity
+   | App uses gesture recognizers | double-tap to like
+   | App uses animations | transitions between fragments and activities
    | App uses an external library to add visual polish | Use Material Design to improve the UI and Glide for image loading
 
 ### 1. User Stories (Required and Optional)
@@ -62,6 +60,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 - Add more animations when switching views
 - Allows users to edit profile
 - Allows anonymous user to view the projects
+- Integrate Github SDK
 
 ### 2. Screen Archetypes
 
@@ -83,45 +82,50 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
     * Lists the description, skills, spots, time length
 * ApplyDialog
     * Allows user to enter description and apply for the project
-* CheckRequestDialog
+* ProcessRequestDialog
     * Accept or decline a request
+* AboutFragment
+	* Show user's info
 * AllProjectsFragment
     * Shows all projects of a particular user
-* UserProfileActivity
-    * Show the profile of a particular user
-* RequestsFragment
-    * Show all requests
+* PartOfFragment
+	* Show all projects that the user is part of
+* EditProfileActivity
+    * Allow authenticated user to edit the profile
+* MyRequestsActivity
+    * Show all requests that the user has made
 * ApplicantsFragment
-    * Show all applicants
+    * Show all applicants that have applied to user's projects
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
 * HomeFragment
-* NotificationsFargment
+* NotificationsFragment
 * ProfileFragment
 
 **Flow Navigation** (Screen to Screen)
 
 * HomeFragment -> ProjectDetailsActivity -> ApplyDialog
 * HomeFragment -> NewProjectActivity
-* HomeFragment -> NotificationsFragment
 * HomeFragment -> UserProfileActivity
 * NotificationsFragment -> CheckRequestDialog
+* MyProfileFragment -> AboutFragment
 * MyProfileFragment -> AllProjectsFragment
-* MyProfileFragment -> MyRequestsFragment (optional)
-* MyProfileFragment -> ApplicantsFragment (optional)
+* MyProfileFragment -> PartOfFragment
+* MyProfileFragment -> EditProfileActivity
+* MyProfileFragment -> MyRequestsActivity (optional)
+* MyProfileFragment -> ApplicantsActivity (optional)
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="wireframes.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
 ### [BONUS] Interactive Prototype
 
-## Schema
+## Schema 
 
 ### Models
 
@@ -137,9 +141,11 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
    | description       | String   | user's description |
    | school | String   | school name |
    | skills    | Array of string   | list of all skills that the user has |
+   | githubUsername | String | Github Username
+   | githubToken | String | Github Token for API calls
    | createdAt     | DateTime | date when user is created (default field) |
    | updatedAt     | DateTime | date when user is last updated (default field) |
-
+   
 #### Project
 
 | Property      | Type     | Description |
@@ -148,15 +154,15 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
    | projectName        | String | project's name |
    | description       | String   | user's description |
    | skills | Array of String   | list of skills that are required for the project |
-   | spots  | Number | Number of spots
-   | availSpots | Number | Number of available spots
-   | timeLength | String | Estimate time length of the project
+   | capacity  | Number | Capacity of the project
+   | spots | Number | Number of taken spots
+   | duration | String | Estimate time length of the project
    | image | ParseFile | image of the project
    | status | String | status of the project
    | owner | Pointer to User | pointer to the owner of the project
    | createdAt     | DateTime | date when project is created (default field) |
    | updatedAt     | DateTime | date when project is last updated (default field) |
-
+   
 #### Notification
 
 | Property      | Type     | Description |
@@ -166,7 +172,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
    | request | Pointer to Request | pointer to the request
    | type | Number | Type of notification (request, confirmation)
    | createdAt     | DateTime | date when notification is created (default field) |
-
+   
 #### Request
 
 | Property      | Type     | Description |
@@ -175,6 +181,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
    | requestedUser | ParseUser | pointer to the user that makes the request
    | project | Project | pointer to the project
    | status | String | Status of the project
+   | description | String | user's description
    | createdAt     | DateTime | date when request is created (default field) |
 
 #### Like
@@ -185,7 +192,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
    | owner | Pointer to User | pointer to the user that liked the project
    | project | Pointer to Project | pointer to the project
    | createdAt     | DateTime | date when request is created (default field) |
-
+   
 #### Comment
 
 | Property      | Type     | Description |
