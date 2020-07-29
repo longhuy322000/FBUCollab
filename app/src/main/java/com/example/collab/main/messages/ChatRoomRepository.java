@@ -6,11 +6,15 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.collab.models.ChatRoom;
 import com.example.collab.models.Message;
+import com.example.collab.models.Project;
+import com.example.collab.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ChatRoomRepository {
@@ -40,6 +44,7 @@ public class ChatRoomRepository {
                     return;
                 }
 
+                // get last message for each room
                 for (int i=0; i<chatRoomsFromDB.size(); i++) {
                     ParseQuery<Message> messageQuery = ParseQuery.getQuery(Message.class);
                     messageQuery.whereEqualTo(Message.KEY_PROJECT, chatRoomsFromDB.get(i).getProject());
@@ -58,12 +63,22 @@ public class ChatRoomRepository {
                                 chatRoomsFromDB.get(finalI).setLastMessage(null);
                             else chatRoomsFromDB.get(finalI).setLastMessage(messages.get(0));
 
-                            if (finalI == chatRoomsFromDB.size() - 1)
+                            // sort data and set value
+                            if (finalI == chatRoomsFromDB.size() - 1) {
+                                Collections.sort(chatRoomsFromDB, new ChatRoomComparator());
                                 chatRooms.setValue(chatRoomsFromDB);
+                            }
                         }
                     });
                 }
             }
         });
+    }
+
+    public class ChatRoomComparator implements Comparator<ChatRoom> {
+        @Override
+        public int compare(ChatRoom room1, ChatRoom room2) {
+            return room2.getCreatedAt().compareTo(room1.getCreatedAt());
+        }
     }
 }
