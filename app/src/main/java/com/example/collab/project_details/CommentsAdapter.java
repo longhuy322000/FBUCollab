@@ -60,7 +60,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                     .into(binding.ivUserImage);
             binding.tvComment.setText(comment.getComment());
             binding.tvUserFullName.setText(comment.getOwner().getString(User.KEY_FULL_NAME));
-            binding.tvCreatedAt.setText(Helper.getRelativeTimeAgo(comment.getCreatedAt().toString()));
+            binding.tvTimestamp.setText(Helper.getRelativeTimeAgo(comment.getCreatedAt().toString()));
         }
 
         @Override

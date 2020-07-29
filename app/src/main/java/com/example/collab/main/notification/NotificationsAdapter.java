@@ -87,7 +87,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             else {
                 binding.getRoot().setBackgroundColor(Color.WHITE);
             }
-            binding.tvCreatedAt.setText(Helper.getRelativeTimeAgo(notification.getCreatedAt().toString()));
+            binding.tvTimestamp.setText(Helper.getRelativeTimeAgo(notification.getCreatedAt().toString()));
 
             Glide.with(context)
                     .load(user.getParseFile(User.KEY_IMAGE).getUrl())

@@ -46,7 +46,7 @@
                 android:layout_below="@+id/tvUserFullName"
                 android:fontFamily="@font/yanone_kaffeesatz_bold"
                 android:gravity="center_horizontal"
-                android:inputType="textCapSentences"
+                android:inputType="textVisiblePassword|textNoSuggestions"
                 android:textSize="25sp"
                 tools:text="Project Name" />
 

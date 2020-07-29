@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.collab.R;
+import com.example.collab.models.ChatRoom;
 import com.example.collab.models.User;
 import com.example.collab.project_details.ProjectDetailsActivity;
 import com.example.collab.shared.CameraHelper;
@@ -37,10 +38,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Headers;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 
 public class NewProjectActivity extends AppCompatActivity {
 
@@ -134,8 +131,23 @@ public class NewProjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Helper.hideKeyboard(NewProjectActivity.this);
-                savePost();
+                saveProject();
                 createGithubRepo();
+            }
+        });
+    }
+
+    private void addUserToRoom(Project project) {
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.setProject(project);
+        chatRoom.setUser(ParseUser.getCurrentUser());
+        chatRoom.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issues with saving chatroom", e);
+                    return;
+                }
             }
         });
     }
@@ -170,7 +182,7 @@ public class NewProjectActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-    private void savePost() {
+    private void saveProject() {
         binding.btnPost.setVisibility(View.GONE);
 
         binding.progressBar.setVisibility(View.VISIBLE);
@@ -206,6 +218,7 @@ public class NewProjectActivity extends AppCompatActivity {
             }
         });
 
+        addUserToRoom(project);
     }
 
     @Override

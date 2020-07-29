@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.example.collab.models.User;
 import com.example.collab.main.home.ProjectsRepository;
+import com.example.collab.shared.OnDoubleTapListener;
 import com.google.android.material.button.MaterialButton;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -150,9 +152,9 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
             }
         });
 
-        binding.btnLike.setOnClickListener(new View.OnClickListener() {
+        binding.btnLike.setOnTouchListener(new OnDoubleTapListener(this) {
             @Override
-            public void onClick(View view) {
+            public void onDoubleTap(MotionEvent e) {
                 likeOnClick();
             }
         });

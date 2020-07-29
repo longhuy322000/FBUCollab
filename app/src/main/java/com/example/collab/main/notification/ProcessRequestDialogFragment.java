@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.example.collab.databinding.FragmentProcessRequestDialogBinding;
+import com.example.collab.models.ChatRoom;
 import com.example.collab.models.Notification;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
@@ -64,6 +65,8 @@ public class ProcessRequestDialogFragment extends DialogFragment {
         final Project project = request.getProject();
         final ParseUser owner = project.getOwner();
 
+        project.fetchInBackground();
+
         Glide.with(getContext())
                 .load(requestedUser.getParseFile(User.KEY_IMAGE).getUrl())
                 .into(binding.ivUserImage);
@@ -113,6 +116,8 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                     }
                 });
 
+                addUserToRoom(project, requestedUser);
+
                 // Create in notification
                 Notification notification = new Notification();
                 notification.setRequest(request);
@@ -125,7 +130,6 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                             Log.e(TAG, "Issues with creating new notification", e);
                             return;
                         }
-                        dismiss();
                     }
                 });
 
@@ -143,6 +147,23 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                                 Log.e(TAG, "Issues with adding requested user as collaborator", error);
                             }
                         });
+
+                dismiss();
+            }
+        });
+    }
+
+    private void addUserToRoom(Project project, ParseUser user) {
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.setProject(project);
+        chatRoom.setUser(user);
+        chatRoom.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issues with saving chatroom", e);
+                    return;
+                }
             }
         });
     }

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.example.collab.R;
 import com.example.collab.databinding.ActivityMainBinding;
 import com.example.collab.main.home.HomeFragment;
+import com.example.collab.main.messages.MessagesFragment;
 import com.example.collab.main.my_profile.ProfileFragment;
 import com.example.collab.main.notification.NotificationFragment;
 import com.example.collab.main.notification.NotificationsViewModel;
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int KEY_HOME_FRAGMENT = 0;
     private static final int KEY_NOTIFICATION_FRAGMENT = 1;
-    private static final int KEY_MY_PROFILE_FRAGMENT = 2;
+    private static final int KEY_MESSAGE_FRAGMENT = 2;
+    private static final int KEY_MY_PROFILE_FRAGMENT = 3;
 
     private NotificationsViewModel notificationsViewModel;
     private ActivityMainBinding binding;
@@ -56,12 +58,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(Integer num) {
                 Log.i(TAG, "notificationsNum: " + num);
-                badge.setNumber(num);
-                if (num == 0) {
+                if (num <= 0) {
                     badge.setVisible(false);
                 }
                 else {
                     badge.setVisible(true);
+                    badge.setNumber(num);
                 }
             }
         });
@@ -82,19 +84,21 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_home:
                         binding.tvMenuAppName.setText("Collab");
                         fragment = new HomeFragment();
-                        item.setIcon(R.drawable.ic_baseline_home_24);
                         currentTab = KEY_HOME_FRAGMENT;
                         break;
                     case R.id.action_notification:
                         binding.tvMenuAppName.setText("Notifications");
                         fragment = new NotificationFragment();
-                        item.setIcon(R.drawable.ic_baseline_notifications_24);
                         currentTab = KEY_NOTIFICATION_FRAGMENT;
+                        break;
+                    case R.id.action_messages:
+                        binding.tvMenuAppName.setText("Messages");
+                        fragment = new MessagesFragment();
+                        currentTab = KEY_MESSAGE_FRAGMENT;
                         break;
                     case R.id.action_profile:
                         binding.tvMenuAppName.setText("My Profile");
                         fragment = new ProfileFragment();
-                        item.setIcon(R.drawable.ic_baseline_person_24);
                         currentTab = KEY_MY_PROFILE_FRAGMENT;
                         break;
                 }

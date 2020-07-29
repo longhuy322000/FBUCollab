@@ -8,13 +8,19 @@ import androidx.annotation.Nullable;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.lifecycle.Observer;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
 import com.example.collab.R;
+import com.example.collab.models.Message;
 import com.example.collab.new_project.NewProjectActivity;
 import com.example.collab.models.Project;
 import com.example.collab.shared.ProjectsFragment;
+import com.parse.ParseQuery;
+import com.parse.livequery.ParseLiveQueryClient;
+import com.parse.livequery.SubscriptionHandling;
 
 import java.util.List;
 
@@ -67,30 +73,4 @@ public class HomeFragment extends ProjectsFragment {
             }
         });
     }
-
-//    private void testLiveQuery() {
-//        Log.i(TAG," yoo");
-//        ParseLiveQueryClient parseLiveQueryClient = ParseLiveQueryClient.Factory.getClient();
-//        ParseQuery<Project> query = ParseQuery.getQuery(Project.class);
-//// Add query constraints here
-//        parseLiveQueryClient.subscribe(query).handleEvents(new SubscriptionHandling.HandleEventsCallback<Project>() {
-//            @Override
-//            public void onEvents(ParseQuery<Project> query, final SubscriptionHandling.Event event, final Project parseObjectSubclass) {
-//                Handler refresh = new Handler(Looper.getMainLooper());
-//                refresh.post(new Runnable() {
-//                    public void run() {
-//                        if (event == SubscriptionHandling.Event.CREATE) {
-//                            Log.i(TAG, "create");
-//                            // Handle new parseObjectSubclass here
-//                        } else if (event == SubscriptionHandling.Event.DELETE) {
-//                            Log.i(TAG, "delete");
-//                        }
-//                        else if (event == SubscriptionHandling.Event.UPDATE) {
-//                            Log.i(TAG, "update");
-//                        }
-//                    }
-//                });
-//            }
-//        });
-//    }
 }
