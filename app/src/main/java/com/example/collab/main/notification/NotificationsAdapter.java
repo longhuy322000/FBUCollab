@@ -35,10 +35,10 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         void displayProcessRequestDialog(Request request);
     }
 
-    Context context;
-    NotificationsAdapterListener notificationsAdapterListener;
-    List<Notification> notifications;
-    NotificationsViewModel viewModel;
+    private Context context;
+    private NotificationsAdapterListener notificationsAdapterListener;
+    private List<Notification> notifications;
+    private NotificationsViewModel viewModel;
 
     public NotificationsAdapter(Context context, List<Notification> notifications, NotificationsAdapterListener notificationsAdapterListener, NotificationsViewModel viewModel) {
         this.context = context;
@@ -129,7 +129,6 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                             Log.e(TAG, "Issues with saving seen for notification", e);
                             return;
                         }
-                        NotificationsRepository.getInstance().decrementUnseen();
                         viewModel.markSeen(getAdapterPosition());
                     }
                 });

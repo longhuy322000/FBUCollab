@@ -192,9 +192,9 @@ public class ProjectsRepository {
                         num2++;
                 }
             }
-            if (p1.getCapacity() == p1.getSpots())
+            if (p1.getCapacity() == p1.getSpots() || p1.getOwner().getUsername().equals(user.getUsername()))
                 return 1;
-            else if (p2.getCapacity() == p2.getSpots())
+            else if (p2.getCapacity() == p2.getSpots() || p2.getOwner().getUsername().equals(user.getUsername()))
                 return -1;
             return Integer.valueOf(num2).compareTo(Integer.valueOf(num1));
         }

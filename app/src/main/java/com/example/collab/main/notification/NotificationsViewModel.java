@@ -9,21 +9,28 @@ import java.util.List;
 
 public class NotificationsViewModel extends ViewModel {
 
+    private NotificationsRepository notificationsRepository;
     public MutableLiveData<List<Notification>> notifications;
     public MutableLiveData<Integer> unseenCount;
 
     public NotificationsViewModel() {
-        notifications = NotificationsRepository.getInstance().getNotifications();
-        unseenCount = NotificationsRepository.getInstance().getUnseenNofiticationsCount();
+        notificationsRepository = new NotificationsRepository();
+        notifications = notificationsRepository.getNotifications();
+        unseenCount = notificationsRepository.getUnseenNofiticationsCount();
     }
 
     public void queryNotifications() {
-        NotificationsRepository.getInstance().queryAllNotifications();
+        notificationsRepository.queryAllNotifications();
+    }
+
+    public void countUnseenNotifications() {
+        notificationsRepository.countUnseenNotifications();
     }
 
     public void markSeen(int position) {
         List<Notification> temp = notifications.getValue();
         temp.get(position).setSeen();
         notifications.setValue(temp);
+        unseenCount.setValue(unseenCount.getValue() - 1);
     }
 }

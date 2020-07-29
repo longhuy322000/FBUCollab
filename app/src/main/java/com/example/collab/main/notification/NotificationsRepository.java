@@ -19,22 +19,14 @@ public class NotificationsRepository {
 
     private static final String TAG = "NotificationsRepository";
 
-    private static NotificationsRepository notificationsRepository;
     public MutableLiveData<List<Notification>> notifications;
     public MutableLiveData<Integer> unseenCount;
 
-    private NotificationsRepository() {
+    public NotificationsRepository() {
         notifications = new MutableLiveData<>();
         unseenCount = new MutableLiveData<>();
         queryAllNotifications();
         countUnseenNotifications();
-    }
-
-    public static NotificationsRepository getInstance() {
-        if (notificationsRepository == null) {
-            notificationsRepository = new NotificationsRepository();
-        }
-        return notificationsRepository;
     }
 
     public MutableLiveData<List<Notification>> getNotifications() {
@@ -43,10 +35,6 @@ public class NotificationsRepository {
 
     public MutableLiveData<Integer> getUnseenNofiticationsCount() {
         return unseenCount;
-    }
-
-    public void decrementUnseen() {
-        unseenCount.setValue(unseenCount.getValue() - 1);
     }
 
     public void queryAllNotifications() {
@@ -73,6 +61,12 @@ public class NotificationsRepository {
         ParseQuery<Notification> query = ParseQuery.getQuery(Notification.class);
         query.whereEqualTo(Notification.KEY_DELIVER_TO, ParseUser.getCurrentUser());
         query.whereEqualTo(Notification.KEY_SEEN, false);
+        query.findInBackground(new FindCallback<Notification>() {
+            @Override
+            public void done(List<Notification> objects, ParseException e) {
+                Log.i(TAG, "num " + objects.size());
+            }
+        });
         query.countInBackground(new CountCallback() {
             @Override
             public void done(int count, ParseException e) {
@@ -80,6 +74,7 @@ public class NotificationsRepository {
                     Log.e(TAG, "Issues with counting unseen notifications", e);
                     return;
                 }
+                Log.i(TAG, "unseen notifications " + count);
                 unseenCount.setValue(count);
             }
         });

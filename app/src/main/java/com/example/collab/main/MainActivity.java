@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         // set notification tab badge number
         final BadgeDrawable badge = binding.bottomNavigation.getOrCreateBadge(R.id.action_notification);
         notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
+        notificationsViewModel.countUnseenNotifications();
         notificationsViewModel.unseenCount.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer num) {
@@ -122,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
             binding.bottomNavigation.setSelectedItemId(R.id.action_home);
             previousTab = KEY_HOME_FRAGMENT;
         }
-
-
     }
 
     private void fetchCurrentUser() {

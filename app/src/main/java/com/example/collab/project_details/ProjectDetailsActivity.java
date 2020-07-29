@@ -147,11 +147,11 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
                     binding.btnApply.setEnabled(false);
                 } else {
                     binding.tvNeedGithubAccount.setVisibility(View.GONE);
-                    binding.btnApply.setEnabled(true);
                 }
             }
         });
 
+        // double tap to like
         binding.btnLike.setOnTouchListener(new OnDoubleTapListener(this) {
             @Override
             public void onDoubleTap(MotionEvent e) {
@@ -162,10 +162,6 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
         // check if the user is the owner of the project
         if (project.getOwner().getUsername().equals(ParseUser.getCurrentUser().getUsername()))
             binding.btnApply.setVisibility(View.GONE);
-        else if (project.getCapacity() == project.getSpots()) {
-            binding.btnApply.setEnabled(false);
-            binding.btnApply.setText("Project closed");
-        }
         else checkApplied();
 
         // postComment button onclick
