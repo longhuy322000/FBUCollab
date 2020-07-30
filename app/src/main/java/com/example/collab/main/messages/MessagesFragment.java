@@ -67,10 +67,12 @@ public class MessagesFragment extends Fragment {
         binding.rvChatRooms.setAdapter(adpater);
         binding.rvChatRooms.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        binding.progressBar.setVisibility(View.VISIBLE);
         chatRoomViewModel.queryChatRooms();
         chatRoomViewModel.chatRooms.observe(getViewLifecycleOwner(), new Observer<List<ChatRoom>>() {
             @Override
             public void onChanged(List<ChatRoom> chatRoomsFromModel) {
+                binding.progressBar.setVisibility(View.GONE);
                 Log.i(TAG, "load chatrooms from model");
                 if (chatRoomsFromModel == null || chatRoomsFromModel.isEmpty()) {
                     binding.tvNoMessages.setVisibility(View.VISIBLE);
