@@ -59,8 +59,11 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 - Users can see all the applicants that applied to their projects
 - Add more animations when switching views
 - Allows users to edit profile
-- Allows anonymous user to view the projects
+
+**Additional Features**
+- Implement the app using MVVM pattern
 - Integrate Github SDK
+- LiveChat Features
 
 ### 2. Screen Archetypes
 
@@ -74,6 +77,10 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
    * Have an add button on the toolbar to add a new project
 * NotificationsFragment
     * List all notifications
+* MessagesFragment
+    * List all the chatroom sorted by last messages
+* LiveChatActivity
+    * Show all the messages related to particular project
 * MyProfileFragment
     * Shows profile, my projects, my requests, applicants
 * NewProjectActivity
@@ -103,6 +110,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 
 * HomeFragment
 * NotificationsFragment
+* MessagesFragment
 * ProfileFragment
 
 **Flow Navigation** (Screen to Screen)
@@ -111,6 +119,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 * HomeFragment -> NewProjectActivity
 * HomeFragment -> UserProfileActivity
 * NotificationsFragment -> CheckRequestDialog
+* MessagesFragment -> LiveChatActivity
 * MyProfileFragment -> AboutFragment
 * MyProfileFragment -> AllProjectsFragment
 * MyProfileFragment -> PartOfFragment
@@ -201,6 +210,25 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
    | owner | Pointer to User | pointer to the user that commented
    | project | Pointer to Project | pointer to the project
    | comment | String | comment's content
+   | createdAt     | DateTime | date when request is created (default field) |
+   
+#### ChatRoom
+
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the project (default field) |
+   | project | Pointer to Project | Pointer to the project that the chatroom refers to
+   | user | Pointer to Project | Pointer to the user
+   | createdAt     | DateTime | date when request is created (default field) |
+   
+#### Message
+
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the project (default field) |
+   | project | Pointer to Project | Pointer to the project
+   | user | Pointer to Project | Pointer to the user
+   | message | String | Content of the message
    | createdAt     | DateTime | date when request is created (default field) |
 
 ### Networking
