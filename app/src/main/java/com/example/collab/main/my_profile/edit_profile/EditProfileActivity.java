@@ -124,11 +124,7 @@ public class EditProfileActivity extends AppCompatActivity implements VerifyGith
                             Log.e(TAG, "Issues with saving user", e);
                             return;
                         }
-                        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
-                        intent.putExtra(Fragment.class.getName(), ProfileFragment.class.getName());
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-                        finish();
+                        goBackToMyProfile();
                     }
                 });
             }
@@ -202,8 +198,14 @@ public class EditProfileActivity extends AppCompatActivity implements VerifyGith
     @Override
     public void onFinishVerifyDialog(String username) {
         Toast.makeText(this, "Successfully added Github account", Toast.LENGTH_SHORT).show();
-        binding.tvGithubUsername.setText(username);
-        binding.tvGithubUrl.setText(GithubClient.GITHUB_BASE_URL + username);
-        binding.etGithubToken.setText("");
+        goBackToMyProfile();
+    }
+
+    private void goBackToMyProfile() {
+        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+        intent.putExtra(Fragment.class.getName(), ProfileFragment.class.getName());
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+        finish();
     }
 }

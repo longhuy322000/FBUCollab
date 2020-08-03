@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         // set notification tab badge number
         final BadgeDrawable badge = binding.bottomNavigation.getOrCreateBadge(R.id.action_notification);
+        badge.setVisible(false);
         notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
         notificationsViewModel.countUnseenNotifications();
         notificationsViewModel.unseenCount.observe(this, new Observer<Integer>() {

@@ -67,7 +67,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
                         .into(binding.ivUserImage);
                 binding.tvUserFullName.setText(user.getString(User.KEY_FULL_NAME));
                 binding.tvMessage.setText(message.getMessage());
-                binding.tvTimestamp.setText(Helper.getRelativeTimeAgo(message.getCreatedAt().toString()));
+                binding.tvTimestamp.setText(Helper.getRelativeTimeAgo(message.getCreatedAt()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

@@ -3,6 +3,7 @@ package com.example.collab.main.messages;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,20 +64,18 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
             this.chatRoom = chatRoom;
             Message lastMessage = chatRoom.getLastMessage();
             binding.tvProjectName.setText(chatRoom.getProject().getProjectName());
+            Glide.with(context)
+                    .load(chatRoom.getProject().getImage().getUrl())
+                    .into(binding.ivProjectImage);
             if (lastMessage == null) {
-                binding.tvNoMessage.setVisibility(View.VISIBLE);
-                binding.rlLastComment.setVisibility(View.GONE);
+                binding.tvLastMessage.setText("No Messages");
+                binding.tvTimeStamp.setVisibility(View.GONE);
                 return;
             }
 
-            binding.tvNoMessage.setVisibility(View.GONE);
-            binding.rlLastComment.setVisibility(View.VISIBLE);
-            Glide.with(context)
-                    .load(lastMessage.getUser().getParseFile(User.KEY_IMAGE).getUrl())
-                    .into(binding.ivUserImage);
-            binding.tvUserFullName.setText(lastMessage.getUser().getString(User.KEY_FULL_NAME));
-            binding.tvLastMessage.setText(lastMessage.getMessage());
-            binding.tvTimeStamp.setText(Helper.getRelativeTimeAgo(lastMessage.getCreatedAt().toString()));
+            binding.tvLastMessage.setText(lastMessage.getUser().getString(User.KEY_FULL_NAME) + ": " + lastMessage.getMessage());
+            binding.tvTimeStamp.setVisibility(View.VISIBLE);
+            binding.tvTimeStamp.setText(Helper.getRelativeTimeAgo(lastMessage.getCreatedAt()));
         }
 
         @Override

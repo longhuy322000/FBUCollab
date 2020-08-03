@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,7 +71,16 @@ public class NotificationFragment extends Fragment implements ProcessRequestDial
         binding.rvNotifications.setAdapter(adapter);
         binding.rvNotifications.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                notificationsViewModel.queryNotifications();
+                notificationsViewModel.countUnseenNotifications();
+            }
+        });
+
         notificationsViewModel.queryNotifications();
+        notificationsViewModel.countUnseenNotifications();
         notificationsViewModel.notifications.observe(getViewLifecycleOwner(), new Observer<List<Notification>>() {
             @Override
             public void onChanged(List<Notification> notificationsFromDatabase) {
@@ -85,6 +95,7 @@ public class NotificationFragment extends Fragment implements ProcessRequestDial
                     binding.tvNoNotifications.setVisibility(View.VISIBLE);
                     notifications.clear();
                 }
+                binding.swipeContainer.setRefreshing(false);
             }
         });
     }

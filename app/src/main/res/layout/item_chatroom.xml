@@ -6,58 +6,36 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp">
 
-    <TextView
-        android:id="@+id/tvProjectName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/ivProjectImage"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
         android:layout_marginStart="32dp"
-        android:fontFamily="@font/yanone_kaffeesatz_bold"
-        android:textSize="20sp"
-        tools:text="Project Name" />
-
-    <TextView
-        android:id="@+id/tvNoMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvProjectName"
-        android:layout_marginStart="32dp"
-        android:text="No Messages"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <RelativeLayout
         android:id="@+id/rlLastComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvNoMessage"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_toEndOf="@id/ivProjectImage"
         android:visibility="visible">
 
-        <ImageView
-            android:id="@+id/ivUserImage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            tools:srcCompat="@tools:sample/avatars" />
-
         <TextView
-            android:id="@+id/tvUserFullName"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvProjectName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_toEndOf="@id/ivUserImage"
-            android:textStyle="bold"
-            tools:text="Full name" />
+            android:fontFamily="@font/yanone_kaffeesatz_bold"
+            android:textSize="20sp"
+            tools:text="Project Name" />
 
         <TextView
             android:id="@+id/tvLastMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvUserFullName"
-            android:layout_marginStart="8dp"
+            android:layout_below="@id/tvProjectName"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="32dp"
-            android:layout_toEndOf="@id/ivUserImage"
             tools:text="Message..." />
 
         <TextView
@@ -65,8 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvLastMessage"
-            android:layout_marginStart="8dp"
-            android:layout_toEndOf="@id/ivUserImage"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
             android:textStyle="italic"
             tools:text="10 mins ago" />
     </RelativeLayout>
@@ -75,8 +53,8 @@
         android:id="@+id/bottomBorder"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/rlLastComment"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/ivProjectImage"
+        android:layout_marginTop="16dp"
         android:background="@color/lightGrey" />
 
 </RelativeLayout>

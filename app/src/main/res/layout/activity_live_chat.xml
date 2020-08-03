@@ -32,6 +32,17 @@
                 android:textSize="26sp"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/btnChatInfo"
+                style="@style/IconOnlyButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                app:icon="@drawable/ic_baseline_info_24"
+                app:iconSize="30dp"
+                app:iconTint="@color/colorAccent"
+                tools:layout_centerVertical="true" />
+
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 

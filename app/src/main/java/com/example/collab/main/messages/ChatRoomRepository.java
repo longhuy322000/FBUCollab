@@ -44,6 +44,11 @@ public class ChatRoomRepository {
                     return;
                 }
 
+                if (chatRoomsFromDB == null || chatRoomsFromDB.isEmpty()) {
+                    chatRooms.setValue(chatRoomsFromDB);
+                    return;
+                }
+
                 // get last message for each room
                 for (int i=0; i<chatRoomsFromDB.size(); i++) {
                     ParseQuery<Message> messageQuery = ParseQuery.getQuery(Message.class);

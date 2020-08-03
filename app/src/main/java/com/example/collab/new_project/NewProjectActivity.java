@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -249,7 +250,7 @@ public class NewProjectActivity extends AppCompatActivity {
                 selectedImage.compress(Bitmap.CompressFormat.PNG, 0, stream);
                 byte[] bitmapBytes = stream.toByteArray();
 
-                photoFile = new ParseFile(bitmapBytes);
+                photoFile = new ParseFile("photo.jpg", bitmapBytes);
 
                 // Load the selected image into a preview
                 binding.ivProjectImage.setImageBitmap(selectedImage);

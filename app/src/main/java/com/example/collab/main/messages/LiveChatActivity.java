@@ -1,6 +1,7 @@
 package com.example.collab.main.messages;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.example.collab.databinding.ActivityLiveChatBinding;
 import com.example.collab.models.ChatRoom;
 import com.example.collab.models.Message;
 import com.example.collab.models.Project;
+import com.example.collab.project_details.ApplyDialogFragment;
 import com.example.collab.shared.Helper;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -74,6 +76,15 @@ public class LiveChatActivity extends AppCompatActivity {
                 });
                 Helper.hideKeyboard(LiveChatActivity.this);
                 binding.etMessage.setText("");
+            }
+        });
+
+        binding.btnChatInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                ChatInfoFragment chatInfoFragment = ChatInfoFragment.newInstance(project);
+                chatInfoFragment.show(fm, "fragment_apply_dialog");
             }
         });
     }
