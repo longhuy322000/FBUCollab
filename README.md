@@ -264,10 +264,6 @@ Collab is a friendly mobile app that allows CS students to find projects based o
     - (Update/PUT) Update the status of request
     
 ### Challenges
-I faced lots of challenges while developing this app. This is one of the most
-complicated apps that I have ever worked on. The views, models, table schema are
-pretty complex. However, I managed to step out of my comfort zone and was
-determined to make a successful app. These are the major obstacles that I faced:
-	- Project planning: I had a hard time making the project plan due to the complexity
-and the scope of this project.
-	- I implemented the app using the MVVM (Model-View-ViewModel) pattern, which separates the user interface logic from the business logic, which leads to easier testing and easier maintenance. It took me a long time to figure this out as my database schema is pretty complex.
+I faced lots of challenges while developing this app. This is one of the most complicated apps that I have ever worked on. The views, models, table schema are pretty complex. However, I managed to step out of my comfort zone and was determined to make a successful app. These are the major obstacles that I faced:
+- Project planning: I had a hard time making the project plan due to the complexity and the scope of this project.
+- I implemented the app using the MVVM (Model-View-ViewModel) pattern, which separates the user interface logic from the business logic, which leads to easier testing and easier maintenance. It took me a long time to figure this out as my database schema is pretty complex.
