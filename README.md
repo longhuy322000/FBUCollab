@@ -9,7 +9,7 @@
 
 ## Overview
 ### Description
-Collab is a friendly mobile app that matches CS students and helps them to work on a project together based on their interests.
+Collab is a friendly mobile app that allows CS students to find projects based on their interests and skills, and apply to be collaborator and work on the projects with their fellow students.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
@@ -63,7 +63,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 **Additional Features**
 - Implement the app using MVVM pattern
 - Integrate Github SDK
-- LiveChat Features
+- LiveChat Feature
 
 ### 2. Screen Archetypes
 
