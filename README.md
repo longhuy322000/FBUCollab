@@ -9,7 +9,7 @@
 
 ## Overview
 ### Description
-Collab is a friendly mobile app that matches CS students and helps them to work on a project together based on their interests.
+Collab is a friendly mobile app that allows CS students to find projects based on their interests and skills, and apply to be collaborator and work on the projects with their fellow students.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
@@ -63,7 +63,7 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
 **Additional Features**
 - Implement the app using MVVM pattern
 - Integrate Github SDK
-- LiveChat Features
+- LiveChat Feature
 
 ### 2. Screen Archetypes
 
@@ -262,3 +262,8 @@ Collab is a friendly mobile app that matches CS students and helps them to work 
     - (Create/POST) Post new request and notification
 - ProcessRequestDialog
     - (Update/PUT) Update the status of request
+    
+### Challenges
+I faced lots of challenges while developing this app. This is one of the most complicated apps that I have ever worked on. The views, models, table schema are pretty complex. However, I managed to step out of my comfort zone and was determined to make a successful app. These are the major obstacles that I faced:
+- Project planning: I had a hard time making the project plan due to the complexity and the scope of this project.
+- I implemented the app using the MVVM (Model-View-ViewModel) pattern, which separates the user interface logic from the business logic, which leads to easier testing and easier maintenance. It took me a long time to figure this out as my database schema is pretty complex.
