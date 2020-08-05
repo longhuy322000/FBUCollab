@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,6 +68,7 @@ public class MessagesFragment extends Fragment {
         binding.rvChatRooms.setAdapter(adpater);
         binding.rvChatRooms.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        Log.i(TAG, "enter messages tab");
         binding.progressBar.setVisibility(View.VISIBLE);
         chatRoomViewModel.queryChatRooms();
         chatRoomViewModel.chatRooms.observe(getViewLifecycleOwner(), new Observer<List<ChatRoom>>() {
@@ -74,6 +76,7 @@ public class MessagesFragment extends Fragment {
             public void onChanged(List<ChatRoom> chatRoomsFromModel) {
                 binding.progressBar.setVisibility(View.GONE);
                 Log.i(TAG, "load chatrooms from model");
+                binding.swipeContainer.setRefreshing(false);
                 if (chatRoomsFromModel == null || chatRoomsFromModel.isEmpty()) {
                     binding.tvNoMessages.setVisibility(View.VISIBLE);
                     return;
@@ -82,6 +85,14 @@ public class MessagesFragment extends Fragment {
                 binding.tvNoMessages.setVisibility(View.GONE);
                 chatRooms.clear();
                 chatRooms.addAll(chatRoomsFromModel);
+                adpater.notifyDataSetChanged();
+            }
+        });
+
+        binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                chatRoomViewModel.queryChatRooms();
             }
         });
     }

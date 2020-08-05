@@ -210,7 +210,9 @@ public class ProjectDetailsActivity extends AppCompatActivity implements ApplyDi
                     return;
                 }
                 if (requests.isEmpty()) {
-                    binding.btnApply.setText("Apply");
+                    if (project.getStatus() == Project.KEY_STATUS_CLOSED)
+                        binding.btnApply.setText("Project closed");
+                    else binding.btnApply.setText("Apply");
                 }
                 else {
                     Request request = requests.get(0);

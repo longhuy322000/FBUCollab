@@ -61,12 +61,6 @@ public class NotificationsRepository {
         ParseQuery<Notification> query = ParseQuery.getQuery(Notification.class);
         query.whereEqualTo(Notification.KEY_DELIVER_TO, ParseUser.getCurrentUser());
         query.whereEqualTo(Notification.KEY_SEEN, false);
-        query.findInBackground(new FindCallback<Notification>() {
-            @Override
-            public void done(List<Notification> objects, ParseException e) {
-                Log.i(TAG, "num " + objects.size());
-            }
-        });
         query.countInBackground(new CountCallback() {
             @Override
             public void done(int count, ParseException e) {

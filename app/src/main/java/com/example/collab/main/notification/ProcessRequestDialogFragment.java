@@ -106,6 +106,8 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                 request.setStatus(Request.KEY_APPROVED_STATUS);
                 saveRequest();
                 project.setSpots(project.getSpots() + 1);
+                if (project.getSpots() == project.getCapacity())
+                    project.setStatus(Project.KEY_STATUS_CLOSED);
                 project.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -117,40 +119,44 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                 });
 
                 addUserToRoom(project, requestedUser);
-
-                // Create in notification
-                Notification notification = new Notification();
-                notification.setRequest(request);
-                notification.setDeliverTo(request.getRequestedUser());
-                notification.setType(Notification.KEY_APPLICANT_RECEIVE_RESULT);
-                notification.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Log.e(TAG, "Issues with creating new notification", e);
-                            return;
-                        }
-                    }
-                });
-
-                // add user as the collaborator in repo
-                GithubClient.addCollaboratorToProject(getContext(), owner.getString(User.KEY_GITHUB_TOKEN),
-                        owner.getString(User.KEY_GITHUB_USERNAME), project.getGithubRepoName(), requestedUser.getString(User.KEY_GITHUB_USERNAME),
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.i(TAG,"Successfully added requested user as collaborator");
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e(TAG, "Issues with adding requested user as collaborator", error);
-                            }
-                        });
+                createNotification();
+                addUserAsCollaborator(owner, project, requestedUser);
 
                 dismiss();
             }
         });
+    }
+
+    private void createNotification() {
+        Notification notification = new Notification();
+        notification.setRequest(request);
+        notification.setDeliverTo(request.getRequestedUser());
+        notification.setType(Notification.KEY_APPLICANT_RECEIVE_RESULT);
+        notification.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issues with creating new notification", e);
+                    return;
+                }
+            }
+        });
+    }
+
+    private void addUserAsCollaborator(ParseUser owner, Project project, ParseUser requestedUser) {
+        GithubClient.addCollaboratorToProject(getContext(), owner.getString(User.KEY_GITHUB_TOKEN),
+                owner.getString(User.KEY_GITHUB_USERNAME), project.getGithubRepoName(), requestedUser.getString(User.KEY_GITHUB_USERNAME),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(TAG,"Successfully added requested user as collaborator");
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "Issues with adding requested user as collaborator", error);
+                    }
+                });
     }
 
     private void addUserToRoom(Project project, ParseUser user) {

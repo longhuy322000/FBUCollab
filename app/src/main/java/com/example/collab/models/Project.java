@@ -29,8 +29,8 @@ public class Project extends ParseObject {
     public static final String KEY_CREATED_AT = "createdAt";
     public static final String KEY_GITHUB_REPO_NAME = "githubRepoName";
 
-    public static final String KEY_STATUS_OPEN = "open";
-    public static final String KEY_STATUS_CLOSED = "closed";
+    public static final int KEY_STATUS_OPEN = 1;
+    public static final int KEY_STATUS_CLOSED = -1;
     public static final String KEY_PROJECT_POSITION = "projectPosition";
     public static final String KEY_USER_LIKE = "userLike";
     public static final String KEY_LIKES_NUM = "likesNum";
@@ -74,8 +74,8 @@ public class Project extends ParseObject {
         return getParseFile(KEY_PROJECT_IMAGE);
     }
 
-    public String getStatus() {
-        return getString(KEY_STATUS);
+    public int getStatus() {
+        return getInt(KEY_STATUS);
     }
 
     public ParseUser getOwner() {
@@ -124,7 +124,7 @@ public class Project extends ParseObject {
         put(KEY_PROJECT_IMAGE, file);
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         put(KEY_STATUS, status);
     }
 

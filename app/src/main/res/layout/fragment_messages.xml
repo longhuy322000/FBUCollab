@@ -16,11 +16,18 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChatRooms"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvNoMessages" />
+        android:layout_below="@id/tvNoMessages">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChatRooms"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"

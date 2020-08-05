@@ -97,6 +97,8 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
 
             binding.getRoot().setOnClickListener(this);
 
+            binding.btnComment.setOnClickListener(this);
+
             binding.ivUserImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
