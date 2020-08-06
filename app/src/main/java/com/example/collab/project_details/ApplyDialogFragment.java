@@ -60,12 +60,8 @@ public class ApplyDialogFragment extends DialogFragment {
         final Project project = getArguments().getParcelable(Project.class.getName());
         final ParseUser user = getArguments().getParcelable(User.class.getName());
         getDialog().setTitle("Apply");
-        Glide.with(getContext())
-                .load(user.getParseFile(User.KEY_IMAGE).getUrl())
-                .into(binding.ivUserImage);
-        binding.tvUsername.setText(user.getString(User.KEY_FULL_NAME));
-        String str = "Why are you interested in being part of <b>" + project.getProjectName() + "</b>?";
-        binding.tvWhyLabel.setText(Html.fromHtml(str));
+
+        binding.tvProjectName.setText(project.getProjectName());
         // Show soft keyboard automatically and request focus to field
         binding.etDescription.requestFocus();
         getDialog().getWindow().setSoftInputMode(
@@ -76,7 +72,6 @@ public class ApplyDialogFragment extends DialogFragment {
             public void onClick(View view) {
                 binding.progressBar.setVisibility(View.VISIBLE);
                 binding.btnSubmit.setVisibility(View.GONE);
-                binding.btnCancel.setVisibility(View.GONE);
 
                 final Request request = new Request();
                 request.setDescription(binding.etDescription.getText().toString());
@@ -114,7 +109,7 @@ public class ApplyDialogFragment extends DialogFragment {
             }
         });
 
-        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+        binding.btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();

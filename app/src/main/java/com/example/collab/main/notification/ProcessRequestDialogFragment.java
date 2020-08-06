@@ -1,6 +1,9 @@
 package com.example.collab.main.notification;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +16,14 @@ import androidx.fragment.app.DialogFragment;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.example.collab.R;
 import com.example.collab.databinding.FragmentProcessRequestDialogBinding;
 import com.example.collab.models.ChatRoom;
 import com.example.collab.models.Notification;
 import com.example.collab.models.Project;
 import com.example.collab.models.Request;
 import com.example.collab.models.User;
+import com.example.collab.profile.UserProfileActivity;
 import com.example.collab.shared.GithubClient;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -71,7 +76,8 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                 .load(requestedUser.getParseFile(User.KEY_IMAGE).getUrl())
                 .into(binding.ivUserImage);
         binding.tvUsername.setText(requestedUser.getString(User.KEY_FULL_NAME));
-        binding.tvContent.setText(request.getDescription());
+        String content = "<b>Request: </b>" + request.getDescription();
+        binding.tvContent.setText(Html.fromHtml(content));
 
         if (request.getStatus() != Request.KEY_PENDING_STATUS) {
             binding.btnApprove.setVisibility(View.GONE);
@@ -97,6 +103,9 @@ public class ProcessRequestDialogFragment extends DialogFragment {
             public void onClick(View view) {
                 request.setStatus(Request.KEY_DECLINED_STATUS);
                 saveRequest();
+
+                createNotification();
+                dismiss();
             }
         });
 
@@ -123,6 +132,20 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                 addUserAsCollaborator(owner, project, requestedUser);
 
                 dismiss();
+            }
+        });
+
+        binding.tvUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToUserProfile(requestedUser);
+            }
+        });
+
+        binding.ivUserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToUserProfile(requestedUser);
             }
         });
     }
@@ -188,5 +211,12 @@ public class ProcessRequestDialogFragment extends DialogFragment {
                 }
             }
         });
+    }
+
+    private void goToUserProfile(ParseUser requestedUser) {
+        Intent intent = new Intent(getContext(), UserProfileActivity.class);
+        intent.putExtra(ParseUser.class.getName(), requestedUser);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 }

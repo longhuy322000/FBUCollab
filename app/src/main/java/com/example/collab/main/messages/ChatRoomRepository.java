@@ -72,6 +72,7 @@ public class ChatRoomRepository {
                             if (finalI == chatRoomsFromDB.size() - 1) {
                                 Collections.sort(chatRoomsFromDB, new ChatRoomComparator());
                                 chatRooms.setValue(chatRoomsFromDB);
+                                Log.i(TAG, "ms yo");
                             }
                         }
                     });

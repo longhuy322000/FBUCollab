@@ -9,35 +9,33 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <RelativeLayout
+    <Button
+        android:id="@+id/btnClose"
+        style="@style/IconOnlyButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:icon="@drawable/ic_vector_close"
+        app:iconSize="30dp"
+        app:iconTint="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/tvProjectName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <ImageView
-            android:id="@+id/ivUserImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_toRightOf="@id/ivUserImage"
-            android:gravity="center_vertical"
-            android:textStyle="bold"
-            tools:text="Username" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/yanone_kaffeesatz_bold"
+        android:gravity="center_horizontal"
+        android:textSize="25sp"
+        tools:text="Project Name" />
 
     <TextView
         android:id="@+id/tvWhyLabel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_weight="1"
-        tools:text="Why are you interested in being part of Collab?" />
+        android:gravity="center_horizontal"
+        android:text="Why are you interested in being part of this project?" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilDescription"
@@ -58,23 +56,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            android:id="@+id/btnCancel"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancel"
-            android:textColor="@color/red" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp">
 
         <Button
             android:id="@+id/btnSubmit"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
             android:text="Submit"
             android:textColor="@color/lightGreen" />
 
